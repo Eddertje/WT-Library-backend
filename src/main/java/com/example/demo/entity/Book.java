@@ -57,6 +57,12 @@ public class Book {
 		this.writer = writer;
 	}
 	
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	public boolean isAvailable() {
 		return available;
 	}

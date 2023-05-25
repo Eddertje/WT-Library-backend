@@ -19,4 +19,9 @@ public class BookService {
 		return repo.findAll();
 	}
 
+	public Book createBook(Book newBook) {
+		// TODO Auto-generated method stub
+		return repo.save(newBook);
+	}
+
 }
