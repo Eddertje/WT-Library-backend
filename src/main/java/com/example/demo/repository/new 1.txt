@@ -1,0 +1,14 @@
+GET http://localhost:8080/books/search?searchTerm=clean%20code&searchField=title
+This query searches for books with the title containing "clean code".
+
+GET http://localhost:8080/books/search?searchTerm=clean%20code&searchField=title
+This query searches for books with the title containing "code".
+
+GET http://localhost:8080/books/search?searchTerm=Robert%20C.%20Martin&searchField=writer
+This query searches for books with the writer containing "Robert C. Martin".
+
+GET http://localhost:8080/books/search?searchTerm=9780132350884&searchField=isbn
+This query searches for books with the ISBN matching "9780132350884".
+
+GET http://localhost:8080/books/search?searchTerm=programming&searchField=keywords
+This query searches for books associated with the keyword "software development".
