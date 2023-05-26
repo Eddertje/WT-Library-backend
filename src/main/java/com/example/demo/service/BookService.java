@@ -14,8 +14,24 @@ public class BookService {
 	@Autowired
 	private IBookRepository repo;
 
-    public Iterable<Book> searchBooks(String searchTerm) {
-        return repo.searchBooks(searchTerm.toLowerCase());
+    public Iterable<Book> searchBooks(String searchTerm, String searchField) {
+        if (searchField != null && !searchField.isEmpty()) {
+            switch (searchField) {
+                case "title":
+                    return repo.findByTitleContainingIgnoreCase(searchTerm);
+                case "isbn":
+                    return repo.findByIsbnContainingIgnoreCase(searchTerm);
+                case "writer":
+                    return repo.findByWriterContainingIgnoreCase(searchTerm);
+                case "keywords":
+                    return repo.findByKeywords_KeywordContainingIgnoreCase(searchTerm);
+                default:
+                    throw new IllegalArgumentException("Invalid search field: " + searchField);
+            }
+        } else {
+            // Search in all the fields using the default query-based approach if searchField is provided
+            return repo.searchBooks(searchTerm.toLowerCase());
+        }
     }
 	
 	public Iterable<Book> findAll() {

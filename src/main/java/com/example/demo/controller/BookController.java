@@ -19,8 +19,8 @@ public class BookController {
 	private BookService service;
 	
 	@RequestMapping("books/search")
-    public Iterable<Book> searchBooks(@RequestParam("searchTerm") String searchTerm) {
-        return service.searchBooks(searchTerm);
+	public Iterable<Book> searchBooks(@RequestParam("searchTerm") String searchTerm, @RequestParam("searchField") String searchField) {
+        return service.searchBooks(searchTerm, searchField);
     }
 	
 	@RequestMapping("books/all")
