@@ -18,6 +18,13 @@ public class BookController {
 	@Autowired
 	private BookService service;
 	
+	/**
+	 * Searches books based on the given search term and an (optional) search field.
+	 * 
+	 * @param searchTerm the term to search for
+	 * @param searchField the field to search in (title, author, isbn, keyword)
+	 * @return an iterable collection of books matching the search criteria
+	 */
 	@RequestMapping("books/search")
 	public Iterable<Book> searchBooks(@RequestParam("searchTerm") String searchTerm, @RequestParam("searchField") String searchField) {
         return service.searchBooks(searchTerm, searchField);
