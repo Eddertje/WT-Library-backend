@@ -26,7 +26,7 @@ public class BookService {
 	 */
 	public Iterable<Book> searchBooks(String searchTerm, String searchField) {
 	    if (searchTerm == null || searchTerm.isEmpty()) {
-	        return Collections.emptyList();
+	        return repo.findAll();
 	    } else if (searchField != null && !searchField.isEmpty()) {
 	        switch (searchField) {
 	            case "title":
@@ -46,6 +46,7 @@ public class BookService {
 	                throw new IllegalArgumentException("Invalid search field: " + searchField);
 	        }
 	    } else {
+	    	System.out.println("test");
 	        return repo.searchBooks(searchTerm.toLowerCase());
 	    }
 	}

@@ -48,7 +48,7 @@ public interface IBookRepository extends CrudRepository<Book, Long>{
      * @param searchTerm the term to search for in book titles, writer names, ISBNs, and keywords
      * @return an iterable collection of books matching the search criteria
      */
-    @Query("SELECT b FROM Book b WHERE lower(b.title) LIKE %:searchTerm% OR lower(b.writer) LIKE %:searchTerm% OR CAST(b.isbn AS string) LIKE %:searchTerm% OR EXISTS (SELECT bk FROM Book b JOIN b.keywords bk WHERE lower(bk.keyword) LIKE %:searchTerm%)")
+    @Query("SELECT DISTINCT b FROM Book b LEFT JOIN b.keywords bk WHERE lower(b.title) LIKE %:searchTerm% OR lower(b.writer) LIKE %:searchTerm% OR CAST(b.isbn AS string) LIKE %:searchTerm% OR lower(bk.keyword) LIKE %:searchTerm%")
     Iterable<Book> searchBooks(@Param("searchTerm") String searchTerm);
 
 }
