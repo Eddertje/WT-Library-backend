@@ -46,7 +46,6 @@ public class BookService {
 	                throw new IllegalArgumentException("Invalid search field: " + searchField);
 	        }
 	    } else {
-	    	System.out.println("test");
 	        return repo.searchBooks(searchTerm.toLowerCase());
 	    }
 	}
