@@ -13,6 +13,10 @@ public class BookService {
 	
 	@Autowired
 	private IBookRepository repo;
+
+    public Iterable<Book> searchBooks(String searchTerm) {
+        return repo.searchBooks(searchTerm.toLowerCase());
+    }
 	
 	public Iterable<Book> findAll() {
 		// TODO Auto-generated method stub
