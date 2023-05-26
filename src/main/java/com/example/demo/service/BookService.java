@@ -29,7 +29,11 @@ public class BookService {
                 case "title":
                     return repo.findByTitleContainingIgnoreCase(searchTerm);
                 case "isbn":
-                    return repo.findByIsbnContainingIgnoreCase(searchTerm);
+                	try {
+                        return repo.findByIsbnContaining(Long.parseLong(searchTerm));
+                    } catch (NumberFormatException e) {
+                        return repo.searchBooks(searchTerm.toLowerCase());
+                    }
                 case "writer":
                     return repo.findByWriterContainingIgnoreCase(searchTerm);
                 case "keywords":

@@ -23,7 +23,7 @@ public interface IBookRepository extends CrudRepository<Book, Long>{
      * @param searchTerm the term to search for in book ISBNs
      * @return an iterable collection of books matching the search criteria
      */
-    Iterable<Book> findByIsbnContainingIgnoreCase(String searchTerm);
+    Iterable<Book> findByIsbnContaining(Long searchTerm);
 
     /**
      * Finds books whose writer's name contains the specified search term, ignoring case.

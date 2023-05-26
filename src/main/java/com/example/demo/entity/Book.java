@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import java.util.List;
+
 import org.hibernate.annotations.ManyToAny;
 
 import jakarta.persistence.Column;
@@ -41,7 +43,7 @@ public class Book {
         joinColumns = @JoinColumn(name = "book_id"),
         inverseJoinColumns = @JoinColumn(name = "keyword_id")
     )
-    private Iterable<Keyword> keywords;
+    private List<Keyword> keywords;
 	
 	public int getId() {
 		return id;
