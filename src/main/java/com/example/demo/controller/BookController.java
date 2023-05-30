@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,8 +41,16 @@ public class BookController {
 	}
 	
 	@RequestMapping(value="books/create", method = RequestMethod.POST)
-	public Book crate(@RequestBody Book newBook) {
+	public Book create(@RequestBody Book newBook) {
 		return service.createBook(newBook);
 	}
-
+	
+	@RequestMapping(value="book/createAll", method = RequestMethod.POST)
+	public ArrayList<Book> create(@RequestBody ArrayList<Book> booklist) {			
+		return service.createBooks(booklist);
+	}
 }
+
+
+
+
