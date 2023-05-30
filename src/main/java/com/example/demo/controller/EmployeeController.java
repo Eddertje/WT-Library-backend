@@ -3,12 +3,10 @@ package com.example.demo.controller;
 import com.example.demo.entity.Employee;
 import com.example.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(maxAge = 3600)
 public class EmployeeController {
 
     @Autowired
@@ -20,7 +18,12 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "employee/login", method = RequestMethod.POST)
-    public boolean login(@RequestBody Employee login) {
+    public Employee login(@RequestBody Employee login) {
         return employeeService.login(login);
+    }
+
+    @RequestMapping(value = "employee/isAdmin", method = RequestMethod.POST)
+    public boolean isAdmin(@RequestBody Employee id) {
+        return employeeService.isAdmin(id);
     }
 }
