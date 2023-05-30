@@ -1,10 +1,16 @@
 package com.example.demo.entity;
 
+import java.util.List;
+
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 
 @Entity
 public class Book {
@@ -31,6 +37,13 @@ public class Book {
 	@Column(nullable = false)
 	private int stock;
 
+	@ManyToAny
+    @JoinTable(
+        name = "book_keywords",
+        joinColumns = @JoinColumn(name = "book_id"),
+        inverseJoinColumns = @JoinColumn(name = "keyword_id")
+    )
+    private List<Keyword> keywords;
 	
 	public int getId() {
 		return id;
@@ -75,7 +88,5 @@ public class Book {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-
-	
 	
 }
