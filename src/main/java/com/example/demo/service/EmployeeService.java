@@ -15,11 +15,29 @@ public class EmployeeService {
 
     public Employee newEmployee(Employee newEmployee) {
         newEmployee.setPassword(String.valueOf(newEmployee.getPassword().hashCode()));
+        System.out.println(newEmployee);
         return repo.save(newEmployee);
     }
 
-    public boolean login(Employee login) {
+    public Employee login(Employee login) {
         Optional<Employee> collection = repo.login(login.getEmail(), String.valueOf(login.getPassword().hashCode()));
-        return collection.isPresent();
+        if(collection.isPresent()) {
+            return collection.get();
+        }
+        return null;
+    }
+
+    public Employee cookieValues(Employee email) {
+        Employee cookieValues = repo.cookieValues(email.getEmail());
+        cookieValues.setPassword(null);
+        return cookieValues;
+    }
+
+    public boolean isAdmin(Employee id) {
+        Optional<Employee> employee = repo.findById(id.getEmployee_id());
+        if(employee.isPresent()) {
+            return employee.get().isAdmin();
+        }
+        return false;
     }
 }

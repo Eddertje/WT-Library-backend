@@ -11,4 +11,8 @@ public interface IEmployeeRepository extends CrudRepository<Employee, Long> {
     @Query( value = "SELECT * FROM Employee e WHERE e.email = ?1 AND e.password = ?2",
             nativeQuery = true)
     Optional<Employee> login(String email, String password);
+
+    @Query(value = "SELECT * FROM Employee e WHERE e.email = ?1",
+            nativeQuery = true)
+    Employee cookieValues(String email);
 }
