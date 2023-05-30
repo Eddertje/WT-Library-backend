@@ -36,25 +36,11 @@ public class Reservation {
 	private LocalDate reservationDate;
 	
 	@Column(nullable = false)
-	private boolean reviewed;
+	private boolean reviewed = false;
 	
 	@Column(nullable = false)
-	private boolean allowed;
+	private boolean allowed = false;
 	
-	public Reservation() {
-		
-	}
-
-	public Reservation(int reservationId, Book bookId, Employee employeeId, LocalDate reservationDate, boolean reviewed,
-			boolean allowed) {
-		this.reservationId = reservationId;
-		this.bookId = bookId;
-		this.employeeId = employeeId;
-		this.reservationDate = reservationDate;
-		this.reviewed = reviewed;
-		this.allowed = allowed;
-	}
-
 	public int getId() {
 		return reservationId;
 	}
