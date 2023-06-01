@@ -107,4 +107,17 @@ public class Employee {
 		this.reservations = reservations;
 	}
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                ", admin=" + admin +
+                '}';
+    }
+
 }
