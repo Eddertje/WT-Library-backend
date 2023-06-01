@@ -1,12 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Employee;
-import com.example.demo.repository.IEmployeeRepository;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Optional;
+import com.example.demo.entity.Employee;
+import com.example.demo.repository.IEmployeeRepository;
 
 @Service
 public class EmployeeService {
@@ -22,4 +22,8 @@ public class EmployeeService {
         Optional<Employee> collection = repo.login(login.getEmail(), String.valueOf(login.getPassword().hashCode()));
         return collection.isPresent();
     }
+
+	public Optional<Employee> findById(long employeeId) {
+		return repo.findById(employeeId);
+	}
 }

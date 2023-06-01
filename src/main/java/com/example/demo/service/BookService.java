@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,10 @@ public class BookService {
 	
 	@Autowired
 	private IBookRepository repo;
+	
+	public Optional<Book> findById(long id) {
+		return repo.findById(id);
+	}
 
 	/**
 	 * Searches books based on the given search term and an (optional) search field.

@@ -2,22 +2,20 @@ package com.example.demo.entity;
 
 import java.util.List;
 
-import org.hibernate.annotations.ManyToAny;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Book {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 
 	@Column(unique = true, nullable = false)
 	private long isbn;
@@ -37,56 +35,82 @@ public class Book {
 	@Column(nullable = false)
 	private int stock;
 
-	@ManyToAny
-    @JoinTable(
-        name = "book_keywords",
-        joinColumns = @JoinColumn(name = "book_id"),
-        inverseJoinColumns = @JoinColumn(name = "keyword_id")
-    )
+	@ManyToMany(mappedBy = "books")
     private List<Keyword> keywords;
-	
-	public int getId() {
+
+	@OneToMany(mappedBy = "book")
+    private List<Reservation> reservations;
+
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(long id) {
 		this.id = id;
 	}
+
 	public long getIsbn() {
 		return isbn;
 	}
+
 	public void setIsbn(long isbn) {
 		this.isbn = isbn;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getWriter() {
 		return writer;
 	}
+
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-	
+
 	public String getPhoto() {
 		return photo;
 	}
+
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+
 	public boolean isAvailable() {
 		return available;
 	}
+
 	public void setAvailable(boolean available) {
 		this.available = available;
 	}
+
 	public int getStock() {
 		return stock;
 	}
+
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+
+	public List<Keyword> getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(List<Keyword> keywords) {
+		this.keywords = keywords;
+	}
+
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 	
 }

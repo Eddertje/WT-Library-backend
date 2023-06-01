@@ -31,8 +31,8 @@ public class ReservationService {
 		
 		Reservation newReservation = new Reservation();
 		
-		newReservation.setBookId(book);
-		newReservation.setEmployeeId(employee);
+//		newReservation.setBookId(book);
+//		newReservation.setEmployeeId(employee);
 		newReservation.setReservationDate(LocalDate.now());
 		newReservation.setAllowed(false);
 		newReservation.setReviewed(false);
@@ -45,6 +45,10 @@ public class ReservationService {
 	public Iterable<Reservation> findAll() {
 		// TODO Auto-generated method stub
 		return repo.findAll();
+	}
+	
+	public Reservation save(Reservation r) {
+		return repo.save(r);
 	}
 	
 }

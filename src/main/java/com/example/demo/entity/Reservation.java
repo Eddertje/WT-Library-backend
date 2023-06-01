@@ -2,17 +2,11 @@ package com.example.demo.entity;
 
 import java.time.LocalDate;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -20,49 +14,45 @@ public class Reservation {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int reservationId;
+	private long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "book_id", referencedColumnName = "id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Book bookId;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "employee_id", referencedColumnName = "employeeId")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Employee employeeId;
-	
+	@ManyToOne(optional = false)
+	private Book book;
+
+	@ManyToOne(optional = false)
+	private Employee employee;
+
 	@Column(nullable = false)
 	private LocalDate reservationDate;
-	
+
 	@Column(nullable = false)
-	private boolean reviewed = false;
-	
+	private boolean reviewed;
+
 	@Column(nullable = false)
-	private boolean allowed = false;
-	
-	public int getId() {
-		return reservationId;
+	private boolean allowed;
+
+	public long getId() {
+		return id;
 	}
 
-	public void setId(int reservationId) {
-		this.reservationId = reservationId;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public Book getBookId() {
-		return bookId;
+	public Book getBook() {
+		return book;
 	}
 
-	public void setBookId(Book bookId) {
-		this.bookId = bookId;
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
-	public Employee getEmployeeId() {
-		return employeeId;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setEmployeeId(Employee employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	public LocalDate getReservationDate() {
@@ -88,6 +78,5 @@ public class Reservation {
 	public void setAllowed(boolean allowed) {
 		this.allowed = allowed;
 	}
-	
-	
+		
 }
