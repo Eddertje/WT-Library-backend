@@ -26,9 +26,6 @@ public class Reservation {
 	private LocalDate reservationDate;
 
 	@Column(nullable = false)
-	private boolean reviewed;
-
-	@Column(nullable = false)
 	private boolean allowed;
 
 	public long getId() {
@@ -61,14 +58,6 @@ public class Reservation {
 
 	public void setReservationDate(LocalDate reservationDate) {
 		this.reservationDate = reservationDate;
-	}
-
-	public boolean isReviewed() {
-		return reviewed;
-	}
-
-	public void setReviewed(boolean reviewed) {
-		this.reviewed = reviewed;
 	}
 
 	public boolean isAllowed() {

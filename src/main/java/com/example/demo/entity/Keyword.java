@@ -16,7 +16,7 @@ public class Keyword {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String keyword;
     
     @ManyToMany()

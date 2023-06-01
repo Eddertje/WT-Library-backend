@@ -18,7 +18,7 @@ public class Book {
 	private long id;
 
 	@Column(unique = true, nullable = false)
-	private long isbn;
+	private String isbn;
 	
 	@Column(nullable = false, length = 255)
 	private String title;
@@ -49,11 +49,11 @@ public class Book {
 		this.id = id;
 	}
 
-	public long getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(long isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 
