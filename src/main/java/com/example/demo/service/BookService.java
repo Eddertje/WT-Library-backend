@@ -75,4 +75,9 @@ public class BookService {
 		return oklist;
 	}
 
+	public void updateBook(Book book) {
+		// TODO Auto-generated method stub
+		repo.save(book);
+	}
+
 }
