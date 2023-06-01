@@ -35,7 +35,6 @@ public class ReservationService {
 //		newReservation.setEmployeeId(employee);
 		newReservation.setReservationDate(LocalDate.now());
 		newReservation.setAllowed(false);
-		newReservation.setReviewed(false);
 		
 		return repo.save(newReservation);
 	}
