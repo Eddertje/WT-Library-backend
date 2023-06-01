@@ -33,14 +33,6 @@ public class EmployeeService {
         return cookieValues;
     }
 
-    public boolean isAdmin(Employee id) {
-        Optional<Employee> employee = repo.findById(id.getEmployee_id());
-        if(employee.isPresent()) {
-            return employee.get().isAdmin();
-        }
-        return false;
-    }
-
 	public Optional<Employee> findById(long employeeId) {
 		return repo.findById(employeeId);
 	}

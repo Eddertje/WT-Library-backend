@@ -22,8 +22,4 @@ public class EmployeeController {
         return employeeService.login(login);
     }
 
-    @RequestMapping(value = "employee/isAdmin", method = RequestMethod.POST)
-    public boolean isAdmin(@RequestBody Employee id) {
-        return employeeService.isAdmin(id);
-    }
 }
