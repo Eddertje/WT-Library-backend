@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Book {
 	
@@ -18,7 +20,7 @@ public class Book {
 	private long id;
 
 	@Column(unique = true, nullable = false)
-	private long isbn;
+	private String isbn;
 	
 	@Column(nullable = false, length = 255)
 	private String title;
@@ -36,10 +38,15 @@ public class Book {
 	private int stock;
 
 	@ManyToMany(mappedBy = "books")
+	@JsonIgnore
     private List<Keyword> keywords;
 
 	@OneToMany(mappedBy = "book")
+	@JsonIgnore
     private List<Reservation> reservations;
+	
+	@OneToMany(mappedBy = "book")
+    private List<Copy> copies;
 
 	public long getId() {
 		return id;
@@ -49,11 +56,11 @@ public class Book {
 		this.id = id;
 	}
 
-	public long getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(long isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 
@@ -112,5 +119,12 @@ public class Book {
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
-	
+
+	public List<Copy> getCopies() {
+		return copies;
+	}
+
+	public void setCopies(List<Copy> copies) {
+		this.copies = copies;
+	}
 }

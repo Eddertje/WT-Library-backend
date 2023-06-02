@@ -48,7 +48,6 @@ public class ReservationController {
 		reservation.setReservationDate(LocalDate.now());
 		reservation.setBook(bookOptional.get());
 		reservation.setEmployee(employeeOptional.get());
-		reservation.setReviewed(false);
 
 		return service.save(reservation);
 	}
