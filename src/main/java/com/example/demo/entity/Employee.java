@@ -30,6 +30,9 @@ public class Employee {
     
     @OneToMany(mappedBy = "employee")
     private List<Reservation> reservations;
+    
+    @OneToMany(mappedBy = "employee")
+    private List<Loan> loans;
 
     public Employee(){}
 

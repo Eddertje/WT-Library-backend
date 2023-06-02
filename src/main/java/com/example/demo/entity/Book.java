@@ -40,6 +40,9 @@ public class Book {
 
 	@OneToMany(mappedBy = "book")
     private List<Reservation> reservations;
+	
+	@OneToMany(mappedBy = "book")
+    private List<Copy> copies;
 
 	public long getId() {
 		return id;
@@ -112,5 +115,12 @@ public class Book {
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
-	
+
+	public List<Copy> getCopies() {
+		return copies;
+	}
+
+	public void setCopies(List<Copy> copies) {
+		this.copies = copies;
+	}
 }
