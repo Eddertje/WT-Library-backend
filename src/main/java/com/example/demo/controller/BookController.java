@@ -52,6 +52,13 @@ public class BookController {
 		return service.createBooks(booklist);
 	}
 	
+	@RequestMapping("book/{id}")
+	public Book findBookById(@PathVariable Long id) {
+		Optional<Book> optionalBook = service.findById(id);
+		Book book = optionalBook.get();
+		return book;
+	}
+	
 	@RequestMapping(value="book/update/{id}", method = RequestMethod.PATCH)
 	public void update(@PathVariable Long id, @RequestBody Book updatedBook){
 		Optional<Book> existingBook = service.findById(id);
