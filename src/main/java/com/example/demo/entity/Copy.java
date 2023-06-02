@@ -1,12 +1,14 @@
 package com.example.demo.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Copy {
@@ -18,8 +20,8 @@ public class Copy {
 	@ManyToOne(optional = false)
 	private Book book;
 	
-	@OneToOne(optional = false)
-    private Loan loan;
+	@OneToMany(mappedBy = "copy")
+    private List<Loan> loans;
 	
 	@Column(nullable = false)
 	private boolean status;
@@ -48,12 +50,12 @@ public class Copy {
 		this.book = book;
 	}
 
-	public Loan getLoan() {
-		return loan;
+	public List<Loan> getLoans() {
+		return loans;
 	}
 
-	public void setLoan(Loan loan) {
-		this.loan = loan;
+	public void setLoans(List<Loan> loans) {
+		this.loans = loans;
 	}
 
 }
