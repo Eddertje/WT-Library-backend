@@ -27,9 +27,7 @@ public class BookController {
 	 * @return an iterable collection of books matching the search criteria
 	 */
 	@RequestMapping("books/search")
-	public Iterable<Book> searchBooks(
-	        @RequestParam(value = "searchTerm", required = false) String searchTerm
-	) {
+	public Iterable<Book> searchBooks(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
 	    return service.searchBooks(searchTerm);
 	}
 	

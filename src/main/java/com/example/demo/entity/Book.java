@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Book {
 	
@@ -36,9 +38,11 @@ public class Book {
 	private int stock;
 
 	@ManyToMany(mappedBy = "books")
+	@JsonIgnore
     private List<Keyword> keywords;
 
 	@OneToMany(mappedBy = "book")
+	@JsonIgnore
     private List<Reservation> reservations;
 	
 	@OneToMany(mappedBy = "book")
