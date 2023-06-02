@@ -10,7 +10,7 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    private long employeeId;
+    private long id;
 
     @Column(length = 50)
     private String firstName;
@@ -30,11 +30,14 @@ public class Employee {
     
     @OneToMany(mappedBy = "employee")
     private List<Reservation> reservations;
+    
+    @OneToMany(mappedBy = "employee")
+    private List<Loan> loans;
 
     public Employee(){}
 
-    public Employee(long employeeId, String firstName, String lastName, String email, String password, boolean active, boolean admin) {
-        this.employeeId = employeeId;
+    public Employee(long id, String firstName, String lastName, String email, String password, boolean active, boolean admin) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -44,11 +47,11 @@ public class Employee {
     }
 
 	public long getEmployeeId() {
-		return employeeId;
+		return id;
 	}
 
-	public void setEmployeeId(long employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployeeId(long id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -110,7 +113,7 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "employeeId=" + employeeId +
+                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
