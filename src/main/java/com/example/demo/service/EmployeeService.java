@@ -45,7 +45,6 @@ public class EmployeeService {
         });
     }
 
-    
     public Employee newEmployee(Employee newEmployee) {
         newEmployee.setPassword(String.valueOf(newEmployee.getPassword().hashCode()));
         System.out.println(newEmployee);
