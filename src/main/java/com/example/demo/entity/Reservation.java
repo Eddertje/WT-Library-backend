@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Reservation {
@@ -23,15 +22,14 @@ public class Reservation {
 	@ManyToOne(optional = false)
 	private Employee employee;
 	
-	@OneToOne(optional = false)
-    private Loan loan;
-
 	@Column(nullable = false)
 	private LocalDate reservationDate;
 
 	@Column(nullable = false)
 	private boolean allowed;
-
+	
+	public Reservation() {}
+	
 	public long getId() {
 		return id;
 	}
@@ -72,11 +70,4 @@ public class Reservation {
 		this.allowed = allowed;
 	}
 
-	public Loan getLoan() {
-		return loan;
-	}
-
-	public void setLoan(Loan loan) {
-		this.loan = loan;
-	}
 }
