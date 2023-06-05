@@ -55,10 +55,6 @@ public class Loan {
 		this.employee = employee;
 	}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> development
 	public LocalDate getLoanDate() {
 		return loanDate;
 	}

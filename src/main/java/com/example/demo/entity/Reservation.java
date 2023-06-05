@@ -24,11 +24,7 @@ public class Reservation {
 	@ManyToOne(optional = false)
 	@JsonIgnore
 	private Employee employee;
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> development
 	@Column(nullable = false)
 	private LocalDate reservationDate;
 
