@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Loan;
+import com.example.demo.entity.Reservation;
 import com.example.demo.entity.Copy;
 import com.example.demo.entity.Employee;
 
@@ -18,9 +19,14 @@ public class LoanService {
 	
 	@Autowired
 	private ILoanRepository repo;
-
-	public Optional<Loan> findById(long id) {
-		return repo.findById(id);
+	
+	public Iterable<Loan> findAll() {
+		// TODO Auto-generated method stub
+		return repo.findAll();
+	}
+	
+	public Loan save(Loan l) {
+		return repo.save(l);
 	}
 
 }
