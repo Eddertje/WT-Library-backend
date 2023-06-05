@@ -2,13 +2,14 @@ package com.example.demo.entity;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Loan {
@@ -21,15 +22,13 @@ public class Loan {
     private Copy copy;
     
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Employee employee;
-
-    @OneToOne(optional = false)
-    private Reservation reservation;
 
     @Column(nullable = false)
 	private LocalDate loanDate;
     
-    @Column(nullable = false)
+    @Column
 	private LocalDate returnDate;
 
 	public Long getId() {
@@ -54,14 +53,6 @@ public class Loan {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
-	}
-
-	public Reservation getReservation() {
-		return reservation;
-	}
-
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
 	}
 
 	public LocalDate getLoanDate() {
