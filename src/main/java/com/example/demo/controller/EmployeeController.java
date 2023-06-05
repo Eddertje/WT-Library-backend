@@ -34,4 +34,15 @@ public class EmployeeController {
         return employeeService.login(login);
     }
 
+    @RequestMapping("employee/makeAdmin")
+    public void makeAdmin(@RequestParam(value = "id") String id) {
+        employeeService.makeAdmin(Long.parseLong(id));
+    }
+
+    @RequestMapping("employee/makeInactive")
+    public void makeInactive(@RequestParam(value = "id") String id) {
+        employeeService.makeInactive(Long.parseLong(id));
+    }
+
+
 }

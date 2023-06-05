@@ -47,7 +47,6 @@ public class EmployeeService {
 
     public Employee newEmployee(Employee newEmployee) {
         newEmployee.setPassword(String.valueOf(newEmployee.getPassword().hashCode()));
-        System.out.println(newEmployee);
         return repo.save(newEmployee);
     }
 
@@ -68,4 +67,23 @@ public class EmployeeService {
 	public Optional<Employee> findById(long employeeId) {
 		return repo.findById(employeeId);
 	}
+
+    public void makeAdmin(long id) {
+        Optional<Employee> update = repo.findById(id);
+        if(update.isPresent()) {
+            Employee employeeUpdate = update.get();
+            employeeUpdate.setAdmin(true);
+            repo.save(employeeUpdate);
+        }
+    }
+
+    public void makeInactive(long id) {
+        Optional<Employee> update = repo.findById(id);
+        if(update.isPresent()) {
+            Employee employeeUpdate = update.get();
+            Employee inActive = new Employee();
+            inActive.setEmployeeId(employeeUpdate.getEmployeeId());
+            repo.save(inActive);
+        }
+    }
 }
