@@ -24,22 +24,14 @@ public class Copy {
     private List<Loan> loans;
 	
 	@Column(nullable = false)
-	private boolean status;
+	private boolean active;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
 	}
 
 	public Book getBook() {
@@ -58,4 +50,13 @@ public class Copy {
 		this.loans = loans;
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	
 }

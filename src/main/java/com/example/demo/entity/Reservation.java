@@ -30,7 +30,9 @@ public class Reservation {
 
 	@Column(nullable = false)
 	private boolean allowed;
-
+	
+	public Reservation() {}
+	
 	public long getId() {
 		return id;
 	}

@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -29,9 +31,11 @@ public class Employee {
     private boolean admin;
     
     @OneToMany(mappedBy = "employee")
+	@JsonIgnore
     private List<Reservation> reservations;
     
     @OneToMany(mappedBy = "employee")
+	@JsonIgnore
     private List<Loan> loans;
 
     public Employee(){}

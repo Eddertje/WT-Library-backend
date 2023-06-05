@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,8 +47,33 @@ public class BookController {
 	public ArrayList<Book> create(@RequestBody ArrayList<Book> booklist) {			
 		return service.createBooks(booklist);
 	}
+	
+	@RequestMapping("book/{id}")
+	public Book findBookById(@PathVariable Long id) {
+		Optional<Book> optionalBook = service.findById(id);
+		Book book = optionalBook.get();
+		return book;
+	}
+	
+	@RequestMapping(value="book/update/{id}", method = RequestMethod.PATCH)
+	public void update(@PathVariable Long id, @RequestBody Book updatedBook){
+		Optional<Book> existingBook = service.findById(id);
+		
+		if (existingBook.isPresent()) {
+			Book book = existingBook.get();
+			
+			book.setIsbn(updatedBook.getIsbn());
+			book.setTitle(updatedBook.getTitle());
+			book.setWriter(updatedBook.getWriter());
+			book.setPhoto(updatedBook.getPhoto());
+			book.setAvailable(updatedBook.isAvailable());
+			book.setStock(updatedBook.getStock());
+			book.setKeywords(updatedBook.getKeywords());			
+			
+			service.updateBook(book);
+		}
+	}
 }
-
 
 
 

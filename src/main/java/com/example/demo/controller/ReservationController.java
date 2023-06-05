@@ -46,9 +46,11 @@ public class ReservationController {
 		Optional<Employee> employeeOptional = employeeService.findById(dto.getEmployeeId()); 
 
 		Reservation reservation = new Reservation();
-		reservation.setReservationDate(LocalDate.now());
+		
 		reservation.setBook(bookOptional.get());
 		reservation.setEmployee(employeeOptional.get());
+		reservation.setReservationDate(LocalDate.now());
+		reservation.setAllowed(false);
 
 		return service.save(reservation);
 	}
