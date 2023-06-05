@@ -22,4 +22,20 @@ public class EmployeeController {
         return employeeService.login(login);
     }
 
+    @RequestMapping("employees/search")
+    public Iterable<Employee> searchEmployees(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
+        return employeeService.searchEmployees(searchTerm);
+    }
+
+    @RequestMapping("employee/makeAdmin")
+    public void makeAdmin(@RequestParam(value = "id") String id) {
+        employeeService.makeAdmin(Long.parseLong(id));
+    }
+
+    @RequestMapping("employee/makeInactive")
+    public void makeInactive(@RequestParam(value = "id") String id) {
+        employeeService.makeInactive(Long.parseLong(id));
+    }
+
+
 }
