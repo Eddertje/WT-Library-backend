@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import com.example.demo.service.BookService;
 import com.example.demo.service.EmployeeService;
 import com.example.demo.service.ReservationService;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 public class ReservationController {
 
