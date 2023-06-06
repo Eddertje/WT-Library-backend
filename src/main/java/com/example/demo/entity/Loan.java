@@ -19,6 +19,7 @@ public class Loan {
     private Long id;
 
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Copy copy;
     
     @ManyToOne(optional = false)

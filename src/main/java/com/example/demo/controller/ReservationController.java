@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.SaveReservationDto;
@@ -31,7 +32,17 @@ public class ReservationController {
 	@Autowired
 	private EmployeeService employeeService;
 
-
+	/**
+	 * Searches employees based on the given search term.
+	 * 
+	 * @param searchTerm the term to search for
+	 * @return an iterable collection of employees matching the search criteria
+	 */
+	@RequestMapping("reservation/search")
+	public Iterable<Reservation> searchReservations(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
+	    return service.searchReservations(searchTerm);
+	}
+	
 	@RequestMapping("reservation/all")
 	public Iterable<Reservation> findAll(){
 		return service.findAll();
@@ -53,6 +64,16 @@ public class ReservationController {
 		reservation.setAllowed(false);
 
 		return service.save(reservation);
+	}
+	
+	@RequestMapping(value = "reservation/update", method = RequestMethod.PUT)
+	public Reservation updateReservation(@RequestBody Reservation reservation) {
+	    Optional<Reservation> optionalReservation = service.findById(reservation.getId());
+
+	    Reservation existingReservation = optionalReservation.orElseThrow(() -> new IllegalArgumentException("Invalid Reservation ID"));
+	    existingReservation.setAllowed(reservation.isAllowed());
+
+	    return service.save(existingReservation);
 	}
 	
 }

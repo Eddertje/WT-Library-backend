@@ -22,7 +22,6 @@ public class Reservation {
 	private Book book;
 
 	@ManyToOne(optional = false)
-	@JsonIgnore
 	private Employee employee;
 
 	@Column(nullable = false)
