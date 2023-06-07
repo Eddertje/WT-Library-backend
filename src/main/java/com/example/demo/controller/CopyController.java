@@ -27,6 +27,13 @@ public class CopyController {
 	@Autowired
 	private BookService bookService;
 	
+	@RequestMapping("copy/{id}")
+	public Copy findCopyById(@PathVariable Long id) {
+		Optional<Copy> optionalCopy = service.findById(id);
+		Copy copy = optionalCopy.get();
+		return copy;
+	}
+	
 	@RequestMapping("copies/all")
 	public Iterable<Copy> findAll(){
 		return service.findAll();
@@ -51,9 +58,6 @@ public class CopyController {
 		
 		if (existingCopy.isPresent()) {
 			Copy copy = existingCopy.get();
-			
-			copy.setBook(updatedCopy.getBook());
-			copy.setLoans(updatedCopy.getLoans());
 			copy.setActive(updatedCopy.isActive());		
 			
 			service.updateCopy(copy);
