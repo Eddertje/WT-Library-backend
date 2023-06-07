@@ -86,4 +86,40 @@ public class EmployeeService {
             repo.save(inActive);
         }
     }
+
+    public void changeFirstName(Employee newEmployee) {
+        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
+        if(update.isPresent()) {
+            Employee employeeUpdate = update.get();
+            employeeUpdate.setFirstName(newEmployee.getFirstName());
+            repo.save(employeeUpdate);
+        }
+    }
+
+    public void changeLastName(Employee newEmployee) {
+        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
+        if(update.isPresent()) {
+            Employee employeeUpdate = update.get();
+            employeeUpdate.setLastName(newEmployee.getLastName());
+            repo.save(employeeUpdate);
+        }
+    }
+
+    public void changeEmail(Employee newEmployee) {
+        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
+        if(update.isPresent()) {
+            Employee employeeUpdate = update.get();
+            employeeUpdate.setEmail(newEmployee.getEmail());
+            repo.save(employeeUpdate);
+        }
+    }
+
+    public void changePassword(Employee newEmployee) {
+        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
+        if(update.isPresent()) {
+            Employee employeeUpdate = update.get();
+            employeeUpdate.setPassword(String.valueOf(newEmployee.getPassword().hashCode()));
+            repo.save(employeeUpdate);
+        }
+    }
 }
