@@ -87,4 +87,9 @@ public class ReservationController {
 	    return service.save(existingReservation);
 	}
 	
+	@RequestMapping(value = "reservation/delete", method = RequestMethod.DELETE)
+	public void deleteReservation(@RequestBody Reservation reservation) {
+		service.deleteReservation(reservation);
+	}
+	
 }

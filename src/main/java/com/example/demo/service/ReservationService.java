@@ -71,5 +71,10 @@ public class ReservationService {
 	public Iterable<Reservation> findByEmployeeId(Reservation res) {
 		return repo.findByEmployee_id(res.getId());
 	}
+
+	public void deleteReservation(Reservation reservation) {
+		// TODO Auto-generated method stub
+		repo.deleteById(reservation.getId());
+	}
 	
 }
