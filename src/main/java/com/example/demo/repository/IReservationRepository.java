@@ -8,6 +8,4 @@ import com.example.demo.entity.Reservation;
 
 public interface IReservationRepository extends CrudRepository<Reservation, Long>,
 	org.springframework.data.jpa.repository.JpaSpecificationExecutor<Reservation> {
-	
-	void deleteByBookAndEmployee(Book book, Employee employee);
 }
