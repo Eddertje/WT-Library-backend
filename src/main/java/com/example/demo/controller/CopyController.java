@@ -1,24 +1,24 @@
 package com.example.demo.controller;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.saveCopyDto;
 import com.example.demo.entity.Book;
 import com.example.demo.entity.Copy;
-import com.example.demo.entity.Employee;
-import com.example.demo.entity.Reservation;
 import com.example.demo.service.BookService;
 import com.example.demo.service.CopyService;
 
 @RestController
+@CrossOrigin(maxAge=3600)
 public class CopyController {
 	
 	@Autowired
@@ -26,6 +26,13 @@ public class CopyController {
 	
 	@Autowired
 	private BookService bookService;
+	
+	@RequestMapping("copy/{id}")
+	public Copy findCopyById(@PathVariable Long id) {
+		Optional<Copy> optionalCopy = service.findById(id);
+		Copy copy = optionalCopy.get();
+		return copy;
+	}
 	
 	@RequestMapping("copies/all")
 	public Iterable<Copy> findAll(){
@@ -51,13 +58,21 @@ public class CopyController {
 		
 		if (existingCopy.isPresent()) {
 			Copy copy = existingCopy.get();
-			
-			copy.setBook(updatedCopy.getBook());
-			copy.setLoans(updatedCopy.getLoans());
 			copy.setActive(updatedCopy.isActive());		
 			
 			service.updateCopy(copy);
 		}
+	}
+	
+	/**
+	 * Searches copies based on the given book id.
+	 * 
+	 * @param searchTerm the term to search for
+	 * @return an iterable collection of copy matching the book id
+	 */
+	@RequestMapping("copies/search")
+	public Iterable<Copy> searchCopies(@RequestParam long bookId) {
+	    return service.searchCopies(bookId);
 	}
 
 }
