@@ -62,5 +62,14 @@ public class ReservationService {
 	public Reservation save(Reservation r) {
 		return repo.save(r);
 	}
+
+	/**
+	 * service method that requests the repo for the reservations of a employee based on the employee_ID within reservation
+	 * @param res the reservation in which the needed employee_ID is stored (only this employee_ID is needed within reservation)
+	 * @return returns iterable list of reservations based on the employeeID
+	 */
+	public Iterable<Reservation> findByEmployeeId(Reservation res) {
+		return repo.findByEmployee_id(res.getId());
+	}
 	
 }

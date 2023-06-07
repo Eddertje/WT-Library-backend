@@ -47,6 +47,17 @@ public class ReservationController {
 	public Iterable<Reservation> findAll(){
 		return service.findAll();
 	}
+	
+	/**
+	 * Searches reservation for specified employee
+	 * 
+	 * @param a reservation in the requestbody in which only the employeeID field is necessary (all other fields can be undefined/empty)
+	 * @return an iterable collection of Reservations matching the employee ID received from the Reservation
+	 */
+	@RequestMapping(value ="reservation/user", method= RequestMethod.POST)
+	public Iterable<Reservation> findByEmployeeId(@RequestBody Reservation res){
+		return service.findByEmployeeId(res);
+	}
 
 	@RequestMapping(value="reservation/make", method = RequestMethod.POST)
 	public Reservation create(@RequestBody SaveReservationDto dto) {
