@@ -28,7 +28,7 @@ public class ReservationService {
 	/**
 	 * Searches for books based on the provided search term.
 	 *
-	 * @param searchTerm the term to search for in book titles, writers, and ISBN.
+	 * @param searchTerm the term to search for in book titles, writers, and ISBN and the date.
 	 * @return a list of books matching the search criteria.
 	 */
 	public List<Reservation> searchReservations(String searchTerm) {
