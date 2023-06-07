@@ -36,6 +36,9 @@ public class Book {
 	
 	@Column(nullable = false)
 	private int stock;
+	
+	@Column(nullable = false)
+	private boolean active;
 
 	@ManyToMany(mappedBy = "books")
 	@JsonIgnore
@@ -102,6 +105,14 @@ public class Book {
 
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public List<Keyword> getKeywords() {

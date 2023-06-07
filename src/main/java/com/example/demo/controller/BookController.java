@@ -40,11 +40,15 @@ public class BookController {
 	
 	@RequestMapping(value="books/create", method = RequestMethod.POST)
 	public Book create(@RequestBody Book newBook) {
+		newBook.setActive(true);
 		return service.createBook(newBook);
 	}
 	
 	@RequestMapping(value="book/createAll", method = RequestMethod.POST)
-	public ArrayList<Book> create(@RequestBody ArrayList<Book> booklist) {			
+	public ArrayList<Book> create(@RequestBody ArrayList<Book> booklist) {	
+		for(Book book : booklist) {
+			book.setActive(true);
+		}
 		return service.createBooks(booklist);
 	}
 	
@@ -68,6 +72,7 @@ public class BookController {
 			book.setPhoto(updatedBook.getPhoto());
 			book.setAvailable(updatedBook.isAvailable());
 			book.setStock(updatedBook.getStock());
+			book.setActive(updatedBook.isActive());
 			book.setKeywords(updatedBook.getKeywords());			
 			
 			service.updateBook(book);
