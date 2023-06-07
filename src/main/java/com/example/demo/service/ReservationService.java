@@ -45,9 +45,9 @@ public class ReservationService {
         });
     }
 	
-		@Transactional
-    public void deleteByBookAndEmployee(Book book, Employee employee) {
-        repo.deleteByBookAndEmployee(book, employee);
+	@Transactional
+    public void deleteById(long id) {
+        repo.deleteById(id);
     }
 	
 	public Iterable<Reservation> findAll() {

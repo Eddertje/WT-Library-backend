@@ -74,5 +74,18 @@ public class CopyController {
 	public Iterable<Copy> searchCopies(@RequestParam long bookId) {
 	    return service.searchCopies(bookId);
 	}
+	
+	/**
+	 * Searches copies with active = true based on the given book id.
+	 * 
+	 * @param searchTerm the term to search for
+	 * @return an iterable collection of copy matching the book id with isActive()
+	 */
+	@RequestMapping("copies/active")
+	public Iterable<Copy> getActiveCopies(@RequestParam long bookId) {
+	    return service.getActiveCopiesWithoutLoan(bookId);
+	}
+
 
 }
+
