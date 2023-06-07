@@ -68,6 +68,7 @@ public class BookController {
 			book.setPhoto(updatedBook.getPhoto());
 			book.setAvailable(updatedBook.isAvailable());
 			book.setStock(updatedBook.getStock());
+			book.setActive(updatedBook.isActive());
 			book.setKeywords(updatedBook.getKeywords());			
 			
 			service.updateBook(book);
