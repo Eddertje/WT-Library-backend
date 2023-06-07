@@ -17,6 +17,7 @@ import com.example.demo.entity.Copy;
 import com.example.demo.entity.Book;
 import com.example.demo.entity.Employee;
 import com.example.demo.entity.Loan;
+import com.example.demo.entity.Reservation;
 import com.example.demo.service.BookService;
 import com.example.demo.service.EmployeeService;
 import com.example.demo.service.LoanService;
@@ -42,6 +43,17 @@ public class LoanController {
 	@RequestMapping("loan/all")
 	public Iterable<Loan> findAll(){
 		return service.findAll();
+	}
+	
+	/**
+	 * Searches loan for specified employee
+	 * 
+	 * @param a loan in the requestbody in which only the employeeID field is necessary (all other fields can be undefined/empty)
+	 * @return an iterable collection of loans matching the employee ID received from the loan
+	 */
+	@RequestMapping(value ="loan/user", method= RequestMethod.POST)
+	public Iterable<Loan> findByEmployeeId(@RequestBody Loan loan){
+		return service.findByEmployeeId(loan);
 	}
 
 	@RequestMapping(value = "loan/make", method = RequestMethod.POST)
