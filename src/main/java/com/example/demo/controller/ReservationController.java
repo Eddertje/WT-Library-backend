@@ -33,10 +33,10 @@ public class ReservationController {
 	private EmployeeService employeeService;
 
 	/**
-	 * Searches employees based on the given search term.
+	 * Searches reservations based on the given search term.
 	 * 
 	 * @param searchTerm the term to search for
-	 * @return an iterable collection of employees matching the search criteria
+	 * @return an iterable collection of reservations matching the search criteria
 	 */
 	@RequestMapping("reservation/search")
 	public Iterable<Reservation> searchReservations(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
