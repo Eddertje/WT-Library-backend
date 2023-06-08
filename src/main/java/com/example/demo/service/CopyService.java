@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Copy;
+import com.example.demo.entity.Employee;
 import com.example.demo.entity.Loan;
 import com.example.demo.repository.ICopyRepository;
 
@@ -29,6 +30,7 @@ public class CopyService {
 		return repo.findById(id);
 	}
 	
+
 	public Copy createCopy(Copy newCopy) {
 		// TODO Auto-generated method stub
 		return repo.save(newCopy);
@@ -79,6 +81,20 @@ public class CopyService {
 	        })
 	        .collect(Collectors.toList());
 	}
+	
+	/**
+	 * Method retrieves the active loan for the given copy and returns associated employee
+	 * 
+	 * @param copy
+	 * @return employee
+	 */
+	public Optional<Employee> getBorrowerForCopy(Copy copy) {
+        Optional<Loan> activeLoan = copy.getLoans().stream()
+                .filter(loan -> loan.getReturnDate() == null)
+                .findFirst();
+
+        return activeLoan.map(Loan::getEmployee);
+    }
 
 
 
