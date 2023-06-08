@@ -6,6 +6,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
+/**
+ * A class that represents an employee/user. It has relations with Reservation and Copy
+ * Notable properties beside normal fields include: 
+ * 	active: which is false if the employee is archivd (and nullified/normalised) 
+ * 	admin: which is true in case the employee is an admin in the system
+ * 
+ */
 @Entity
 public class Employee {
 

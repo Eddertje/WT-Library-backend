@@ -20,7 +20,10 @@ import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 import jakarta.persistence.criteria.Predicate;
 
-
+/**
+ * The service layer for the entity Employee 
+ *
+ */
 @Service
 public class EmployeeService {
     @Autowired
@@ -56,12 +59,6 @@ public class EmployeeService {
             return collection.get();
         }
         return null;
-    }
-
-    public Employee cookieValues(Employee email) {
-        Employee cookieValues = repo.cookieValues(email.getEmail());
-        cookieValues.setPassword(null);
-        return cookieValues;
     }
 
 	public Optional<Employee> findById(long employeeId) {
