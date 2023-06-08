@@ -50,6 +50,17 @@ public class LoanController {
 	public Iterable<Loan> findAll(){
 		return service.findAll();
 	}
+	
+	/**
+	 * Searches loan for specified employee
+	 * 
+	 * @param a loan in the requestbody in which only the employeeID field is necessary (all other fields can be undefined/empty)
+	 * @return an iterable collection of loans matching the employee ID received from the loan
+	 */
+	@RequestMapping(value ="loan/user", method= RequestMethod.POST)
+	public Iterable<Loan> findByEmployeeId(@RequestBody Loan loan){
+		return service.findByEmployeeId(loan);
+	}
 
 	/**
 	 * Creates a new loan based on the provided data.
