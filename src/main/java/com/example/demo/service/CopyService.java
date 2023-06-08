@@ -38,7 +38,6 @@ public class CopyService {
 		// TODO Auto-generated method stub
 		repo.save(copy);
 	}
-	
 
 	/**
 	 * Searches for copies based on the provided book id.
@@ -79,7 +78,5 @@ public class CopyService {
 	        })
 	        .collect(Collectors.toList());
 	}
-
-
 
 }
