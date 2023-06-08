@@ -22,7 +22,6 @@ public class CopyService {
 	private ICopyRepository repo;
 	
 	public Iterable<Copy> findAll() {
-		// TODO Auto-generated method stub
 		return repo.findAll();
 	}
 	
@@ -32,7 +31,6 @@ public class CopyService {
 	
 
 	public Copy createCopy(Copy newCopy) {
-		// TODO Auto-generated method stub
 		return repo.save(newCopy);
 	}
 
@@ -40,7 +38,6 @@ public class CopyService {
 		// TODO Auto-generated method stub
 		repo.save(copy);
 	}
-	
 
 	/**
 	 * Searches for copies based on the provided book id.
@@ -95,7 +92,5 @@ public class CopyService {
 
         return activeLoan.map(Loan::getEmployee);
     }
-
-
 
 }
