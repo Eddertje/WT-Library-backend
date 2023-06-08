@@ -11,6 +11,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
+/**
+ * A class that represents a Loan (type, not token). It has relations with Copy and Employee.
+ * Notable properties beside usual fields include: 
+ * 	loanDate (the date when the loan started), 
+ * 	returnDate (the date when the loan was completed)
+ */
 @Entity
 public class Loan {
 	

@@ -1,9 +1,7 @@
 package com.example.demo.controller;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,15 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dto.SaveReservationDto;
 import com.example.demo.dto.LoanReservationDto;
 import com.example.demo.dto.SaveLoanDto;
 import com.example.demo.entity.Copy;
-import com.example.demo.entity.Book;
 import com.example.demo.entity.Employee;
 import com.example.demo.entity.Loan;
-import com.example.demo.entity.Reservation;
-import com.example.demo.service.BookService;
 import com.example.demo.service.CopyService;
 import com.example.demo.service.EmployeeService;
 import com.example.demo.service.LoanService;
@@ -34,9 +28,6 @@ public class LoanController {
 
 	@Autowired
 	private LoanService service;
-	
-	@Autowired
-	private BookService bookService;
 	
 	@Autowired
 	private CopyService copyService;
