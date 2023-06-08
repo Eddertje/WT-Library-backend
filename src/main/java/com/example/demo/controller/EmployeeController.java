@@ -44,5 +44,24 @@ public class EmployeeController {
         employeeService.makeInactive(Long.parseLong(id));
     }
 
+    @RequestMapping(value = "employee/changeFirstName", method = RequestMethod.POST)
+    public void changeFirstName(@RequestBody Employee newEmployee) {
+       employeeService.changeFirstName(newEmployee);
+    }
+
+    @RequestMapping(value = "employee/changeLastName", method = RequestMethod.POST)
+    public void changeLastName(@RequestBody Employee newEmployee) {
+        employeeService.changeLastName(newEmployee);
+    }
+
+    @RequestMapping(value = "employee/changeEmail", method = RequestMethod.POST)
+    public void changeEmail(@RequestBody Employee newEmployee) {
+        employeeService.changeEmail(newEmployee);
+    }
+
+    @RequestMapping(value = "employee/changePassword", method = RequestMethod.POST)
+    public void changePassword(@RequestBody Employee newEmployee) {
+        employeeService.changePassword(newEmployee);
+    }
 
 }
