@@ -50,6 +50,11 @@ public class BookService {
 		return repo.save(newBook);
 	}
 	
+	/**
+	 * Method that createds multiple books by iterating over the list.
+	 * @param booklist arraylist of books
+	 * @return the list of newly created books
+	 */
 	public ArrayList<Book> createBooks(ArrayList<Book> booklist) {
 		ArrayList<Book> oklist = new ArrayList<Book>();
 		for(Book book : booklist) {
