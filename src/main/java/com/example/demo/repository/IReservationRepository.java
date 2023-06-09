@@ -13,11 +13,14 @@ public interface IReservationRepository extends CrudRepository<Reservation, Long
 	void deleteByBookAndEmployee(Book book, Employee employee);
 	
 	/**
-	 * A method that returns the list of reservations for a specified employee
+	 * A method that returns the by date ordered list of reservations for a specified employee
 	 * 
 	 * @param employeeId the id of the employee for which you want the reservations
 	 * @return the list of reservations attached to this employee
 	 */
-	Iterable<Reservation> findByEmployee_id(long employeeId);
+	Iterable<Reservation> findByEmployee_idOrderByAllowedDescReservationDateDesc(long employeeId);
+	
+	
+
 
 }

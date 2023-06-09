@@ -45,13 +45,10 @@ public class CopyService {
 	 * @param searchTerm the term to search for in book titles, writers, and ISBN.
 	 * @return a list of books matching the search criteria.
 	 */
-	public List<Copy> searchCopies(long bookId) {
-	    Set<Copy> copies= new HashSet<>();
-
-	    copies.addAll(repo.findByBookId(bookId));
-	    
-	    return new ArrayList<>(copies);
+	public List<Copy> searchCopies(long bookId) {	    
+	    return repo.findByBookIdOrderByIdAsc(bookId);
 	}
+	
 	
 	/**
 	 * Searches for copies based on the provided book id where active = true and that are not loaned out yet.
@@ -59,7 +56,7 @@ public class CopyService {
 	 * @return a list of copies matching the search criteria.
 	 */
 	public Iterable<Copy> getActiveCopiesWithoutLoan(long bookId) {
-	    return repo.findAllByBookIdAndActive(bookId, true)
+	    return repo.findAllByBookIdAndActiveOrderByIdAsc(bookId, true)
 	        .stream()
 	        .filter(copy -> {
 	            List<Loan> loans = copy.getLoans();

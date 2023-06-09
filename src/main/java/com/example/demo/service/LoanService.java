@@ -56,6 +56,10 @@ public class LoanService {
 	    return updatedLoan;
 	}
 	
+	public List<Loan> findAllOrdered(){
+		return repo.findAllByOrderByReturnDateAscLoanDateDesc();
+	}
+	
 	/**
 	 * Searches for books based on the provided search term.
 	 *
@@ -83,7 +87,7 @@ public class LoanService {
 	 * @return returns iterable list of loans based on the employeeID
 	 */
 	public Iterable<Loan> findByEmployeeId(Loan loan) {
-		return repo.findByEmployee_id(loan.getId());
+		return repo.findByEmployee_idOrderByReturnDateAscLoanDateAsc(loan.getId());
 	}
 
 }
