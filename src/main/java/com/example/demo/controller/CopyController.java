@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.saveCopyDto;
 import com.example.demo.entity.Book;
 import com.example.demo.entity.Copy;
+import com.example.demo.entity.Employee;
 import com.example.demo.service.BookService;
 import com.example.demo.service.CopyService;
 
@@ -97,5 +99,21 @@ public class CopyController {
 	    return service.getActiveCopiesWithoutLoan(bookId);
 	}
 
+	@RequestMapping("copies/{copyId}/status")
+	public ResponseEntity<String> getCopyStatus(@PathVariable Long copyId) {
+        Optional<Copy> copy = service.findById(copyId);
+
+        if (copy.isPresent()) {
+            Optional<Employee> borrower = service.getBorrowerForCopy(copy.get());
+
+            if (borrower.isPresent()) {
+                return ResponseEntity.ok(borrower.get().getFirstName() + " " + borrower.get().getLastName());
+            } else {
+                return ResponseEntity.ok("-");
+            }
+        } else {
+        	return ResponseEntity.notFound().build();
+        }
+    }
 }
 
