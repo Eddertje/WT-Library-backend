@@ -20,7 +20,10 @@ import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 import jakarta.persistence.criteria.Predicate;
 
-
+/**
+ * The service layer for the entity Employee 
+ *
+ */
 @Service
 public class EmployeeService {
     @Autowired
@@ -58,12 +61,6 @@ public class EmployeeService {
         return null;
     }
 
-    public Employee cookieValues(Employee email) {
-        Employee cookieValues = repo.cookieValues(email.getEmail());
-        cookieValues.setPassword(null);
-        return cookieValues;
-    }
-
 	public Optional<Employee> findById(long employeeId) {
 		return repo.findById(employeeId);
 	}
@@ -84,6 +81,42 @@ public class EmployeeService {
             Employee inActive = new Employee();
             inActive.setEmployeeId(employeeUpdate.getEmployeeId());
             repo.save(inActive);
+        }
+    }
+
+    public void changeFirstName(Employee newEmployee) {
+        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
+        if(update.isPresent()) {
+            Employee employeeUpdate = update.get();
+            employeeUpdate.setFirstName(newEmployee.getFirstName());
+            repo.save(employeeUpdate);
+        }
+    }
+
+    public void changeLastName(Employee newEmployee) {
+        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
+        if(update.isPresent()) {
+            Employee employeeUpdate = update.get();
+            employeeUpdate.setLastName(newEmployee.getLastName());
+            repo.save(employeeUpdate);
+        }
+    }
+
+    public void changeEmail(Employee newEmployee) {
+        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
+        if(update.isPresent()) {
+            Employee employeeUpdate = update.get();
+            employeeUpdate.setEmail(newEmployee.getEmail());
+            repo.save(employeeUpdate);
+        }
+    }
+
+    public void changePassword(Employee newEmployee) {
+        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
+        if(update.isPresent()) {
+            Employee employeeUpdate = update.get();
+            employeeUpdate.setPassword(String.valueOf(newEmployee.getPassword().hashCode()));
+            repo.save(employeeUpdate);
         }
     }
 }

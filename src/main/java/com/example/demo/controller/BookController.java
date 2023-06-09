@@ -33,21 +33,46 @@ public class BookController {
 	    return service.searchBooks(searchTerm);
 	}
 	
+	/*
+	 * method/endpoint for getting all books
+	 */
 	@RequestMapping("books/all")
 	public Iterable<Book> findAll(){
 		return service.findAll();
 	}
 	
+	/**
+	 * method/endoint for creating a book (POST method)
+	 * 
+	 * @param accepts Book within the request body with all the necessary fields
+	 * @return the just created book 
+	 */
 	@RequestMapping(value="books/create", method = RequestMethod.POST)
 	public Book create(@RequestBody Book newBook) {
+		newBook.setActive(true);
 		return service.createBook(newBook);
 	}
 	
+	/**
+	 * method/endoint for creating multiple books (POST method)
+	 * 
+	 * @param booklist an arraylist of books to be created
+	 * @return an arraylist of just creatd books
+	 */
 	@RequestMapping(value="book/createAll", method = RequestMethod.POST)
-	public ArrayList<Book> create(@RequestBody ArrayList<Book> booklist) {			
+	public ArrayList<Book> create(@RequestBody ArrayList<Book> booklist) {	
+		for(Book book : booklist) {
+			book.setActive(true);
+		}
 		return service.createBooks(booklist);
 	}
 	
+	/**
+	 * method/endoint getting a book through it's id
+	 * 
+	 * @param the id of a book
+	 * @return the book (if it exists) with the specified id
+	 */
 	@RequestMapping("book/{id}")
 	public Book findBookById(@PathVariable Long id) {
 		Optional<Book> optionalBook = service.findById(id);
@@ -55,6 +80,13 @@ public class BookController {
 		return book;
 	}
 	
+	/**
+	 * the method/endpoint for updating a book based on it's id(PATCH METHOD)
+	 * 
+	 * @param id the id of the book that needs to be updated
+	 * @param updatedBook the 'new' book with updated fields
+	 * 
+	 */
 	@RequestMapping(value="book/update/{id}", method = RequestMethod.PATCH)
 	public void update(@PathVariable Long id, @RequestBody Book updatedBook){
 		Optional<Book> existingBook = service.findById(id);
@@ -68,6 +100,7 @@ public class BookController {
 			book.setPhoto(updatedBook.getPhoto());
 			book.setAvailable(updatedBook.isAvailable());
 			book.setStock(updatedBook.getStock());
+			book.setActive(updatedBook.isActive());
 			book.setKeywords(updatedBook.getKeywords());			
 			
 			service.updateBook(book);

@@ -2,8 +2,6 @@ package com.example.demo.entity;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +9,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
+/**
+ * A class that represents a Reservation (type, not token). It has relations with Book and Employee.
+ * Notable properties beside usual fields include: 
+ * 	reservationDate (the date when the reservation got made), 
+ * 	allowed (true when a admin started working on it to turn it into a loan)
+ */
 @Entity
 public class Reservation {
 

@@ -33,10 +33,10 @@ public class ReservationController {
 	private EmployeeService employeeService;
 
 	/**
-	 * Searches employees based on the given search term.
+	 * Searches reservations based on the given search term.
 	 * 
 	 * @param searchTerm the term to search for
-	 * @return an iterable collection of employees matching the search criteria
+	 * @return an iterable collection of reservations matching the search criteria
 	 */
 	@RequestMapping("reservation/search")
 	public Iterable<Reservation> searchReservations(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
@@ -47,7 +47,24 @@ public class ReservationController {
 	public Iterable<Reservation> findAll(){
 		return service.findAll();
 	}
+	
+	/**
+	 * Searches reservation for specified employee
+	 * 
+	 * @param a reservation in the requestbody in which only the employeeID field is necessary (all other fields can be undefined/empty)
+	 * @return an iterable collection of Reservations matching the employee ID received from the Reservation
+	 */
+	@RequestMapping(value ="reservation/user", method= RequestMethod.POST)
+	public Iterable<Reservation> findByEmployeeId(@RequestBody Reservation res){
+		return service.findByEmployeeId(res);
+	}
 
+	/**
+	 * Handles the creation of a new reservation.
+	 *
+	 * @param dto The DTO (Data Transfer Object) containing the reservation details.
+	 * @return The created reservation.
+	 */
 	@RequestMapping(value="reservation/make", method = RequestMethod.POST)
 	public Reservation create(@RequestBody SaveReservationDto dto) {
 		// Book vinden
@@ -66,6 +83,13 @@ public class ReservationController {
 		return service.save(reservation);
 	}
 	
+	/**
+	 * Handles the update of an existing reservation.
+	 *
+	 * @param reservation The reservation to update.
+	 * @return The updated reservation.
+	 * @throws IllegalArgumentException If the provided reservation ID is invalid.
+	 */
 	@RequestMapping(value = "reservation/update", method = RequestMethod.PUT)
 	public Reservation updateReservation(@RequestBody Reservation reservation) {
 	    Optional<Reservation> optionalReservation = service.findById(reservation.getId());
@@ -74,6 +98,16 @@ public class ReservationController {
 	    existingReservation.setAllowed(reservation.isAllowed());
 
 	    return service.save(existingReservation);
+	}
+	
+	/**
+	 * Handles the deletion of a reservation.
+	 *
+	 * @param reservation The reservation to delete.
+	 */
+	@RequestMapping(value = "reservation/delete", method = RequestMethod.DELETE)
+	public void deleteReservation(@RequestBody Reservation reservation) {
+		service.deleteReservation(reservation);
 	}
 	
 }
