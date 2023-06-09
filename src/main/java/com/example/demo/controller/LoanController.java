@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.LoanEmployeeCopyDto;
 import com.example.demo.dto.LoanReservationDto;
 import com.example.demo.dto.SaveLoanDto;
 import com.example.demo.entity.Copy;
@@ -133,4 +134,8 @@ public class LoanController {
 	    return service.searchLoans(searchTerm);
 	}
 	
+	@RequestMapping("loan/complete/{loan}")
+	public LoanEmployeeCopyDto loanComplete(@PathVariable("loan") long loanID) {
+		return service.getLoanByIdDto(loanID);
+	}
 }
