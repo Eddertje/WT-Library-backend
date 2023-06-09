@@ -32,6 +32,11 @@ public class Copy {
 	@OneToMany(mappedBy = "copy")
     private List<Loan> loans;
 	
+	@Override
+	public String toString() {
+		return "Copy [id=" + id + ", book=" + book + ", loans=" + loans + ", active=" + active + "]";
+	}
+
 	@Column(nullable = false)
 	private boolean active;
 

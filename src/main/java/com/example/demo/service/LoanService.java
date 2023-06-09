@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.LoanEmployeeCopyDto;
 import com.example.demo.entity.Loan;
 
 import com.example.demo.repository.ILoanRepository;
@@ -56,6 +57,10 @@ public class LoanService {
 	    return updatedLoan;
 	}
 	
+	public List<Loan> findAllOrdered(){
+		return repo.findAllByOrderByReturnDateAscLoanDateDesc();
+	}
+	
 	/**
 	 * Searches for books based on the provided search term.
 	 *
@@ -83,7 +88,14 @@ public class LoanService {
 	 * @return returns iterable list of loans based on the employeeID
 	 */
 	public Iterable<Loan> findByEmployeeId(Loan loan) {
-		return repo.findByEmployee_id(loan.getId());
+		return repo.findByEmployee_idOrderByReturnDateAscLoanDateAsc(loan.getId());
+	}
+
+	public LoanEmployeeCopyDto getLoanByIdDto(long loanID) {
+		// TODO Auto-generated method stub
+		Loan lening = repo.findById(loanID).get();
+		LoanEmployeeCopyDto newDto= new LoanEmployeeCopyDto(lening);
+		return newDto;
 	}
 
 }

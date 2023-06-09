@@ -13,7 +13,7 @@ public interface ICopyRepository extends CrudRepository<Copy, Long> {
      * @param searchTerm the term to search for in copies bookId
      * @return an iterable collection of copies matching the search criteria
      */
-    List<Copy> findByBookId(long bookId);
+    List<Copy> findByBookIdOrderByIdAsc(long bookId);
     
     /**
      * Finds copies linked to the specified book id and where active = true
@@ -21,6 +21,6 @@ public interface ICopyRepository extends CrudRepository<Copy, Long> {
      * @param searchTerm the term to search for in copies bookId
      * @return an iterable collection of copies matching the search criteria
      */
-    List<Copy> findAllByBookIdAndActive(long bookId, boolean active);
+    List<Copy> findAllByBookIdAndActiveOrderByIdAsc(long bookId, boolean active);
    
 }
