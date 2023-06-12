@@ -53,23 +53,12 @@ public class LoanService {
 	}
 	
 	/**
-	 * Retrieves a list of loans ordered by return date in ascending order and loan date in descending order.
-	 * @return A list of LoanEmployeeCopyDto objects representing the ordered loans.
-	 */
-	public List<LoanEmployeeCopyDto> findAllOrdered() {
-	    List<Loan> loans = repo.findAllByOrderByReturnDateAscLoanDateDesc();
-	    return loans.stream()
-	            .map(LoanEmployeeCopyDto::new)
-	            .collect(Collectors.toList());
-	}
-	
-	/**
 	 * Searches for loans based on a search term and returns a list of matching LoanEmployeeCopyDto objects.
 	 * @param searchTerm The search term to match against employee names, book titles, and ISBNs.
 	 * @return A list of LoanEmployeeCopyDto objects that match the search criteria.
 	 */
     public List<LoanEmployeeCopyDto> searchLoans(String searchTerm) {
-        List<Loan> loans = (List<Loan>) repo.findAll();
+        List<Loan> loans = (List<Loan>) repo.findAllByOrderByReturnDateAscLoanDateDesc();
 
         // Filter the loans based on the search criteria
         if (searchTerm != null) {

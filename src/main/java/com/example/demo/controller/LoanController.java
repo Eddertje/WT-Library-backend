@@ -50,11 +50,6 @@ public class LoanController {
 		return service.findAll();
 	}
 	
-	@RequestMapping("loan/allOrdered")
-	public Iterable<LoanEmployeeCopyDto> findAllOrdered(){
-		return service.findAllOrdered();
-	}
-	
 	/**
 	 * Searches loan for specified employee
 	 * 
