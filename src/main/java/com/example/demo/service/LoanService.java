@@ -1,11 +1,10 @@
 package com.example.demo.service;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.LoanEmployeeCopyDto;
@@ -13,10 +12,6 @@ import com.example.demo.entity.Loan;
 
 import com.example.demo.repository.ILoanRepository;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -57,44 +52,71 @@ public class LoanService {
 	    return updatedLoan;
 	}
 	
-	public List<Loan> findAllOrdered(){
-		return repo.findAllByOrderByReturnDateAscLoanDateDesc();
+	/**
+	 * Retrieves a list of loans ordered by return date in ascending order and loan date in descending order.
+	 * @return A list of LoanEmployeeCopyDto objects representing the ordered loans.
+	 */
+	public List<LoanEmployeeCopyDto> findAllOrdered() {
+	    List<Loan> loans = repo.findAllByOrderByReturnDateAscLoanDateDesc();
+	    return loans.stream()
+	            .map(LoanEmployeeCopyDto::new)
+	            .collect(Collectors.toList());
 	}
 	
 	/**
-	 * Searches for books based on the provided search term.
-	 *
-	 * @param searchTerm the term to search for in book titles, writers, and ISBN and the dates.
-	 * @return a list of books matching the search criteria.
+	 * Searches for loans based on a search term and returns a list of matching LoanEmployeeCopyDto objects.
+	 * @param searchTerm The search term to match against employee names, book titles, and ISBNs.
+	 * @return A list of LoanEmployeeCopyDto objects that match the search criteria.
 	 */
-	public List<Loan> searchLoans(String searchTerm) {
-		return repo.findAll(new Specification<Loan>() {
-            @Override
-            public Predicate toPredicate(Root<Loan> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                Predicate firstNameCompare = criteriaBuilder.like(root.get("employee").get("firstName"), "%" + searchTerm + "%");
-                Predicate lastNameCompare = criteriaBuilder.like(root.get("employee").get("lastName"), "%" + searchTerm + "%");
-                Predicate titleCompare = criteriaBuilder.like(root.get("copy").get("book").get("title"), "%" + searchTerm + "%");
-                Predicate loanDateCompare = criteriaBuilder.like(root.get("loanDate"), searchTerm);
-                Predicate returnDateCompare = criteriaBuilder.like(root.get("returnDate"), searchTerm);
+    public List<LoanEmployeeCopyDto> searchLoans(String searchTerm) {
+        List<Loan> loans = (List<Loan>) repo.findAll();
 
-                return criteriaBuilder.or(firstNameCompare, lastNameCompare, titleCompare, loanDateCompare, returnDateCompare);
-            }
-        });
+        // Filter the loans based on the search criteria
+        if (searchTerm != null) {
+            String keyword = searchTerm.toLowerCase();
+            loans = loans.stream()
+                    .filter(loan -> containsKeyword(loan, keyword))
+                    .collect(Collectors.toList());
+        }
+
+        // Map the loans to LoanEmployeeCopyDto objects
+        List<LoanEmployeeCopyDto> loanDtos = loans.stream()
+                .map(loan -> new LoanEmployeeCopyDto(loan))
+                .collect(Collectors.toList());
+
+        return loanDtos;
     }
 
-	/**
-	 * service method that requests the repo for the loans of an employee based on the employee_ID within loan
-	 * @param loan the loan in which the needed employee_ID is stored (only this employee_ID is needed within loan)
-	 * @return returns iterable list of loans based on the employeeID
-	 */
-	public Iterable<Loan> findByEmployeeId(Loan loan) {
-		return repo.findByEmployee_idOrderByReturnDateAscLoanDateAsc(loan.getId());
+    /**
+     * Checks if a loan contains the specified keyword in employee names, book titles, ISBNs, or loan dates.
+     * @param loan The loan to check.
+     * @param keyword The keyword to search for.
+     * @return True if the loan contains the keyword, otherwise false.
+     */
+    private boolean containsKeyword(Loan loan, String keyword) {
+        LoanEmployeeCopyDto dto = new LoanEmployeeCopyDto(loan);
+        return dto.getEmployeeFirstName().contains(keyword) ||
+               dto.getEmployeeLastName().contains(keyword) ||
+               dto.getBookTitle().contains(keyword) ||
+               dto.getIsbn().contains(keyword) ||
+               dto.getLoanDate().toString().contains(keyword) ||
+               dto.getLoanDate().toString().contains(keyword);
+    }
+
+    /**
+     * Retrieves a list of loans for a specific employee ordered by return date in ascending order and loan date in ascending order.
+     * @param loan The loan containing the employee ID for which to retrieve the loans.
+     * @return A list of LoanEmployeeCopyDto objects representing the loans of the specified employee.
+     */
+	public List<LoanEmployeeCopyDto> findByEmployeeId(Loan loan) {
+	    List<Loan> loans = repo.findByEmployee_idOrderByReturnDateAscLoanDateAsc(loan.getId());
+	    return loans.stream()
+	            .map(LoanEmployeeCopyDto::new)
+	            .collect(Collectors.toList());
 	}
 
 	public LoanEmployeeCopyDto getLoanByIdDto(long loanID) {
-		// TODO Auto-generated method stub
-		Loan lening = repo.findById(loanID).get();
-		LoanEmployeeCopyDto newDto= new LoanEmployeeCopyDto(lening);
+		LoanEmployeeCopyDto newDto= new LoanEmployeeCopyDto(repo.findById(loanID).get());
 		return newDto;
 	}
 

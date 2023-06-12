@@ -1,93 +1,163 @@
 package com.example.demo.dto;
 
+import java.time.LocalDate;
+
+import com.example.demo.entity.Book;
 import com.example.demo.entity.Copy;
 import com.example.demo.entity.Employee;
 import com.example.demo.entity.Loan;
 
+/**
+ * A Data Transfer Object that that is used to request all of the relevant data this
+ * is connected to a loan. Specifically: Loan, Employee, Book and copy and all it's relevant
+ * fields.
+ * 
+ */
 public class LoanEmployeeCopyDto {
 
-	long employeeID;
-	long boekID;
-	long copyID;
-	String EmployeeVoornaam;
-	String EmployeeAchternaam;
+	// Loan
+	long loanId;
+	LocalDate loanDate;
+	LocalDate returnDate;
 	
-	public long getEmployeeID() {
-		return employeeID;
-	}
-
-
-	public void setEmployeeID(long employeeID) {
-		this.employeeID = employeeID;
-	}
-
-
-	public long getBoekID() {
-		return boekID;
-	}
-
-
-	public void setBoekID(long boekID) {
-		this.boekID = boekID;
-	}
-
-
-	public long getCopyID() {
-		return copyID;
-	}
-
-
-	public void setCopyID(long copyID) {
-		this.copyID = copyID;
-	}
-
-
-	public String getEmployeeVoornaam() {
-		return EmployeeVoornaam;
-	}
-
-
-	public void setEmployeeVoornaam(String employeeVoornaam) {
-		EmployeeVoornaam = employeeVoornaam;
-	}
-
-
-	public String getEmployeeAchternaam() {
-		return EmployeeAchternaam;
-	}
-
-
-	public void setEmployeeAchternaam(String employeeAchternaam) {
-		EmployeeAchternaam = employeeAchternaam;
-	}
-
-
-	public String getBoeknaam() {
-		return Boeknaam;
-	}
-
-
-	public void setBoeknaam(String boeknaam) {
-		Boeknaam = boeknaam;
-	}
-
-
-	String Boeknaam;
+	// Employee
+	long employeeId;
+	String employeeFirstName;
+	String employeeLastName;
 	
+	// Book
+	long bookId;
+	String bookTitle;
+	String isbn;
 	
-	public LoanEmployeeCopyDto(Loan lening) {
-		this.Boeknaam = lening.getCopy().getBook().getTitle();
-		this.EmployeeVoornaam = lening.getEmployee().getFirstName();
-		this.EmployeeAchternaam = lening.getEmployee().getLastName();
-		this.boekID = lening.getCopy().getBook().getId();
-		this.copyID = lening.getCopy().getId();
+	// Copy
+	long copyId;
+
+	public LoanEmployeeCopyDto(Loan loan) {
+
+		// Loan
+		this.loanId = loan.getId();
+		this.loanDate = loan.getLoanDate();
+		this.returnDate = loan.getReturnDate();
+		
+		// Employee
+		this.employeeId = loan.getEmployee().getEmployeeId();
+		this.employeeFirstName = loan.getEmployee().getFirstName();
+		this.employeeLastName = loan.getEmployee().getLastName();
+		
+		// Book
+		this.bookId = loan.getCopy().getBook().getId();
+		this.bookTitle = loan.getCopy().getBook().getTitle();
+		this.isbn = loan.getCopy().getBook().getIsbn();
+		
+		// Copy
+		this.copyId = loan.getCopy().getId();
+	}
+	
+	public Loan getLoan(Loan loan) {
+		loan.setId(this.loanId);
+		loan.setLoanDate(this.loanDate);
+		loan.setLoanDate(this.loanDate);
+		return loan;
 	}
 	
 	public Employee getEmployee(Employee employee) {
-		employee.setFirstName(this.EmployeeVoornaam);
-		employee.setLastName(this.EmployeeAchternaam);
+		employee.setEmployeeId(this.employeeId);
+		employee.setFirstName(this.employeeFirstName);
+		employee.setLastName(this.employeeLastName);
 		return employee;
 	}
 	
-	//en andere objecten
+	public Book getBook(Book book) {
+		book.setId(this.bookId);
+		book.setTitle(this.bookTitle);
+		book.setIsbn(this.isbn);
+		return book;
+	}
+	
+	public Copy getCopy(Copy copy) {
+		copy.setId(this.copyId);
+		return copy;
+	}
+
+	public long getLoanId() {
+		return loanId;
+	}
+
+	public void setLoanId(long loanId) {
+		this.loanId = loanId;
+	}
+
+	public LocalDate getLoanDate() {
+		return loanDate;
+	}
+
+	public void setLoanDate(LocalDate loanDate) {
+		this.loanDate = loanDate;
+	}
+
+	public LocalDate getReturnDate() {
+		return returnDate;
+	}
+
+	public void setReturnDate(LocalDate returnDate) {
+		this.returnDate = returnDate;
+	}
+
+	public long getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(long employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public String getEmployeeFirstName() {
+		return employeeFirstName;
+	}
+
+	public void setEmployeeFirstName(String employeeFirstName) {
+		this.employeeFirstName = employeeFirstName;
+	}
+
+	public String getEmployeeLastName() {
+		return employeeLastName;
+	}
+
+	public void setEmployeeLastName(String employeeLastName) {
+		this.employeeLastName = employeeLastName;
+	}
+
+	public long getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(long bookId) {
+		this.bookId = bookId;
+	}
+
+	public String getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public long getCopyId() {
+		return copyId;
+	}
+
+	public void setCopyId(long copyId) {
+		this.copyId = copyId;
+	}
+
 }
