@@ -15,7 +15,7 @@ org.springframework.data.jpa.repository.JpaSpecificationExecutor<Loan> {
 	 * @param employeeId the id of the employee for which you want the loans
 	 * @return the list of loans attached to this employee
 	 */
-	Iterable<Loan> findByEmployee_idOrderByReturnDateAscLoanDateAsc(long employeeId);
+	List<Loan> findByEmployee_idOrderByReturnDateAscLoanDateAsc(long employeeId);
 
 	List<Loan> findAllByOrderByReturnDateAscLoanDateDesc();
 
