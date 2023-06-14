@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.LoanEmployeeCopyDto;
 import com.example.demo.dto.LoanReservationDto;
 import com.example.demo.dto.SaveLoanDto;
 import com.example.demo.entity.Copy;
@@ -53,10 +54,10 @@ public class LoanController {
 	 * Searches loan for specified employee
 	 * 
 	 * @param a loan in the requestbody in which only the employeeID field is necessary (all other fields can be undefined/empty)
-	 * @return an iterable collection of loans matching the employee ID received from the loan
+	 * @return an iterable collection of Loan-Employee-Copy-Dto's matching the employee ID received from the loan
 	 */
 	@RequestMapping(value ="loan/user", method= RequestMethod.POST)
-	public Iterable<Loan> findByEmployeeId(@RequestBody Loan loan){
+	public Iterable<LoanEmployeeCopyDto> findByEmployeeId(@RequestBody Loan loan){
 		return service.findByEmployeeId(loan);
 	}
 
@@ -121,11 +122,15 @@ public class LoanController {
 	 * Searches loans based on the given search term.
 	 * 
 	 * @param searchTerm the term to search for
-	 * @return an iterable collection of loans matching the search criteria
+	 * @return an iterable collection of Loan-Employee-Copy-Dto's matching the search criteria
 	 */
 	@RequestMapping("loans/search")
-	public Iterable<Loan> searchLoans(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
+	public Iterable<LoanEmployeeCopyDto> searchLoans(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
 	    return service.searchLoans(searchTerm);
 	}
 	
+	@RequestMapping("loan/complete/{loan}")
+	public LoanEmployeeCopyDto loanComplete(@PathVariable("loan") long loanID) {
+		return service.getLoanByIdDto(loanID);
+	}
 }

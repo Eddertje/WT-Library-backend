@@ -67,7 +67,7 @@ public class ReservationService {
 	 * @return returns iterable list of reservations based on the employeeID
 	 */
 	public Iterable<Reservation> findByEmployeeId(Reservation res) {
-		return repo.findByEmployee_id(res.getId());
+		return repo.findByEmployee_idOrderByAllowedDescReservationDateDesc(res.getId());
 	}
 
 	public void deleteReservation(Reservation reservation) {
