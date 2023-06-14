@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import com.example.demo.dto.FindBookDto;
+import com.example.demo.dto.GetBookDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +33,16 @@ public class BookController {
 	@RequestMapping("books/search")
 	public Iterable<Book> searchBooks(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
 	    return service.searchBooks(searchTerm);
+	}
+
+	/**
+	 * Searches books and reservations based on the given id and search term.
+	 *
+	 * @return an iterable collection of books matching the search criteria
+	 */
+	@RequestMapping("books/booksReservation")
+	public Iterable<FindBookDto> searchBooksAndReservation(@RequestBody GetBookDto getBookDto) {
+		return service.searchBooksAndReservation(getBookDto);
 	}
 	
 	@RequestMapping("books/all")

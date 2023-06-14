@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import com.example.demo.dto.FindBookDto;
+import com.example.demo.dto.GetBookDto;
+import jakarta.persistence.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,4 +67,26 @@ public class BookService {
 		repo.save(book);
 	}
 
+	public Iterable<FindBookDto> searchBooksAndReservation(GetBookDto getBookDto) {
+		List<Tuple> findBookTuples = repo.findBooksAndReservations(getBookDto.getId(), getBookDto.getSearchTerm());
+
+		List<FindBookDto> findBookDtos = findBookTuples.stream()
+				.map(t -> new FindBookDto(
+						extract(0, t),
+						t.get(1, String.class),
+						t.get(2, String.class),
+						t.get(3, String.class),
+						extract(4, t)
+				))
+				.collect(Collectors.toList());
+
+		return findBookDtos;
+	}
+
+	public long extract(int i, Tuple t) {
+		if (t.get(i) == null) {
+			return -1;
+		}
+		return (long) t.get(i);
+	}
 }
