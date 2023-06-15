@@ -23,7 +23,7 @@ public class EmployeeController {
 	 * @param searchTerm the term to search for
 	 * @return an iterable collection of employees matching the search criteria
 	 */
-	@RequestMapping("employees/search")
+	@RequestMapping("admin/employees/search")
 	public Iterable<Employee> searchEmployees(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
 	    return employeeService.searchEmployees(searchTerm);
 	}
@@ -34,7 +34,7 @@ public class EmployeeController {
 	 * @param newEmployee is the new object of the employee with all its values within
 	 * @return the employee that was just created
 	 */
-    @RequestMapping(value = "employee/register", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/employee/register", method = RequestMethod.POST)
     public Employee create(@RequestBody Employee newEmployee) {
         return employeeService.newEmployee(newEmployee);
     }
@@ -55,7 +55,7 @@ public class EmployeeController {
 	 * 
 	 * @param the id (as a string) for the employee that is selectd
 	 */
-    @RequestMapping("employee/makeAdmin")
+    @RequestMapping("admin/employee/makeAdmin")
     public void makeAdmin(@RequestParam(value = "id") String id) {
         employeeService.makeAdmin(Long.parseLong(id));
     }
@@ -65,7 +65,7 @@ public class EmployeeController {
 	 * 
 	 * @param the id (as a string) for the employee that is selected
 	 */
-    @RequestMapping("employee/makeInactive")
+    @RequestMapping("admin/employee/makeInactive")
     public void makeInactive(@RequestParam(value = "id") String id) {
         employeeService.makeInactive(Long.parseLong(id));
     }

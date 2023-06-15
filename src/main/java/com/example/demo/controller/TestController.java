@@ -20,7 +20,7 @@ public class TestController {
 	@Autowired
 	private TestService service;
 	
-	@RequestMapping("test/all")
+	@RequestMapping("admin/test/all")
 	public Iterable<Test> findAll(){
 		return service.findAll();
 	}
