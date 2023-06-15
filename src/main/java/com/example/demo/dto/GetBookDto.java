@@ -1,5 +1,8 @@
 package com.example.demo.dto;
 
+/**
+ * Dto used to send search data to the backend, currently used in: searchBooksAndReservation in the BookController
+ */
 public class GetBookDto {
     private long id;
 

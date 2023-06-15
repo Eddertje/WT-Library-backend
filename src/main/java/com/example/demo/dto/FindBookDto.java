@@ -1,5 +1,8 @@
 package com.example.demo.dto;
 
+/**
+ * Dto used to send all books and respective reservations of a specific user to the frontend.
+ */
 public class FindBookDto {
     private long id;
 
