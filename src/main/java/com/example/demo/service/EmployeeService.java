@@ -49,15 +49,8 @@ public class EmployeeService {
     }
 	
 	public Iterable<Employee> searchEmployees() {
-		Iterable<Employee> test = repo.findAll();
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("service: " +test);
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		return test;
+		return repo.findAll();
+
     }
 
 

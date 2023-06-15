@@ -35,23 +35,7 @@ public class EmployeeController {
 	
 	@RequestMapping("admin/employees/search2")
 	public Iterable<Employee> searchEmployees() {
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("test");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		
-	    Iterable<Employee> test = employeeService.searchEmployees();
-	    System.out.println(test);
-	    return test;
+	    return employeeService.searchEmployees();
 	}
     
     /**

@@ -33,9 +33,7 @@ public class BookController {
 	 */
 	@RequestMapping("books/search")
 	public Iterable<Book> searchBooks(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
-	    List<Book> test = service.searchBooks(searchTerm);
-	    System.out.println(test);
-	    return test;
+	    return service.searchBooks(searchTerm);
 	}
 
 	/**
@@ -53,9 +51,7 @@ public class BookController {
 	 */
 	@RequestMapping("books/all")
 	public Iterable<Book> findAll(){
-		Iterable<Book> test = service.findAll();
-		System.out.println(test);
-		return test;
+		return service.findAll();
 	}
 	
 	/**
