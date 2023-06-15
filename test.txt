@@ -1,0 +1,4 @@
+https://springboot.carpago.nl/springboot-security-api-doc/target/index.html
+	https://github.com/rloman/spring-security-demo-tour-of-heroes
+
+https://github.com/FelixvL/SecurityMetRayTopi
