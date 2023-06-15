@@ -59,6 +59,12 @@ public class ReservationController {
 		return service.findByEmployeeId(res);
 	}
 
+	/**
+	 * Handles the creation of a new reservation.
+	 *
+	 * @param dto The DTO (Data Transfer Object) containing the reservation details.
+	 * @return The created reservation.
+	 */
 	@RequestMapping(value="reservation/make", method = RequestMethod.POST)
 	public Reservation create(@RequestBody SaveReservationDto dto) {
 		// Book vinden
@@ -77,6 +83,13 @@ public class ReservationController {
 		return service.save(reservation);
 	}
 	
+	/**
+	 * Handles the update of an existing reservation.
+	 *
+	 * @param reservation The reservation to update.
+	 * @return The updated reservation.
+	 * @throws IllegalArgumentException If the provided reservation ID is invalid.
+	 */
 	@RequestMapping(value = "reservation/update", method = RequestMethod.PUT)
 	public Reservation updateReservation(@RequestBody Reservation reservation) {
 	    Optional<Reservation> optionalReservation = service.findById(reservation.getId());
@@ -87,6 +100,11 @@ public class ReservationController {
 	    return service.save(existingReservation);
 	}
 	
+	/**
+	 * Handles the deletion of a reservation.
+	 *
+	 * @param reservation The reservation to delete.
+	 */
 	@RequestMapping(value = "reservation/delete", method = RequestMethod.DELETE)
 	public void deleteReservation(@RequestBody Reservation reservation) {
 		service.deleteReservation(reservation);

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Copy;
+import com.example.demo.entity.Employee;
 import com.example.demo.entity.Loan;
 import com.example.demo.repository.ICopyRepository;
 
@@ -21,7 +22,6 @@ public class CopyService {
 	private ICopyRepository repo;
 	
 	public Iterable<Copy> findAll() {
-		// TODO Auto-generated method stub
 		return repo.findAll();
 	}
 	
@@ -29,8 +29,8 @@ public class CopyService {
 		return repo.findById(id);
 	}
 	
+
 	public Copy createCopy(Copy newCopy) {
-		// TODO Auto-generated method stub
 		return repo.save(newCopy);
 	}
 
@@ -38,7 +38,6 @@ public class CopyService {
 		// TODO Auto-generated method stub
 		repo.save(copy);
 	}
-	
 
 	/**
 	 * Searches for copies based on the provided book id.
@@ -46,13 +45,10 @@ public class CopyService {
 	 * @param searchTerm the term to search for in book titles, writers, and ISBN.
 	 * @return a list of books matching the search criteria.
 	 */
-	public List<Copy> searchCopies(long bookId) {
-	    Set<Copy> copies= new HashSet<>();
-
-	    copies.addAll(repo.findByBookId(bookId));
-	    
-	    return new ArrayList<>(copies);
+	public List<Copy> searchCopies(long bookId) {	    
+	    return repo.findByBookIdOrderByIdAsc(bookId);
 	}
+	
 	
 	/**
 	 * Searches for copies based on the provided book id where active = true and that are not loaned out yet.
@@ -60,7 +56,7 @@ public class CopyService {
 	 * @return a list of copies matching the search criteria.
 	 */
 	public Iterable<Copy> getActiveCopiesWithoutLoan(long bookId) {
-	    return repo.findAllByBookIdAndActive(bookId, true)
+	    return repo.findAllByBookIdAndActiveOrderByIdAsc(bookId, true)
 	        .stream()
 	        .filter(copy -> {
 	            List<Loan> loans = copy.getLoans();
@@ -79,7 +75,19 @@ public class CopyService {
 	        })
 	        .collect(Collectors.toList());
 	}
+	
+	/**
+	 * Method retrieves the active loan for the given copy and returns associated employee
+	 * 
+	 * @param copy
+	 * @return employee
+	 */
+	public Optional<Employee> getBorrowerForCopy(Copy copy) {
+        Optional<Loan> activeLoan = copy.getLoans().stream()
+                .filter(loan -> loan.getReturnDate() == null)
+                .findFirst();
 
-
+        return activeLoan.map(Loan::getEmployee);
+    }
 
 }

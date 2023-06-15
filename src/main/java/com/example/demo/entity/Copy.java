@@ -12,6 +12,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+/**
+ * A class that represents a Copy (type, not token). It has relations with Book and Loans.
+ * Notable properties beside usual fields include: 
+ * 	active (false if the copy is archived)
+ * 
+ */
 @Entity
 public class Copy {
 
@@ -26,6 +32,11 @@ public class Copy {
 	@OneToMany(mappedBy = "copy")
     private List<Loan> loans;
 	
+	@Override
+	public String toString() {
+		return "Copy [id=" + id + ", book=" + book + ", loans=" + loans + ", active=" + active + "]";
+	}
+
 	@Column(nullable = false)
 	private boolean active;
 

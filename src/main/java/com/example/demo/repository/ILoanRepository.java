@@ -1,9 +1,10 @@
 package com.example.demo.repository;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.example.demo.entity.Loan;
-import com.example.demo.entity.Reservation;
 
 public interface ILoanRepository extends CrudRepository<Loan, Long>,
 org.springframework.data.jpa.repository.JpaSpecificationExecutor<Loan> {
@@ -14,7 +15,9 @@ org.springframework.data.jpa.repository.JpaSpecificationExecutor<Loan> {
 	 * @param employeeId the id of the employee for which you want the loans
 	 * @return the list of loans attached to this employee
 	 */
-	Iterable<Loan> findByEmployee_id(long employeeId);
+	List<Loan> findByEmployee_idOrderByReturnDateAscLoanDateAsc(long employeeId);
+
+	List<Loan> findAllByOrderByReturnDateAscLoanDateDesc();
 
 
 }

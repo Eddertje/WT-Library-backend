@@ -9,6 +9,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 
+/**
+ * A class that represents a Keyword (type, not token). It has a relation with Book.
+ * Notable properties beside usual fields include: 
+ * 	keyword (The string describing the keyword)
+ */
 @Entity
 public class Keyword {
 

@@ -12,6 +12,15 @@ import jakarta.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * A class that represents a Book (type, not token). It has relations with Copy, Reservation and Keyword.
+ * Notable properties beside usual fields include: 
+ * 	stock (the amount of Copies of a book), 
+ * 	available (true if a copy is available for loan), 
+ * 	active (false if book is archived)
+ * 
+ *
+ */
 @Entity
 public class Book {
 	

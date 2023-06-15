@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.Book;
-import com.example.demo.entity.Employee;
 import com.example.demo.entity.Reservation;
 import com.example.demo.repository.IReservationRepository;
 
@@ -69,7 +67,7 @@ public class ReservationService {
 	 * @return returns iterable list of reservations based on the employeeID
 	 */
 	public Iterable<Reservation> findByEmployeeId(Reservation res) {
-		return repo.findByEmployee_id(res.getId());
+		return repo.findByEmployee_idOrderByAllowedDescReservationDateDesc(res.getId());
 	}
 
 	public void deleteReservation(Reservation reservation) {
