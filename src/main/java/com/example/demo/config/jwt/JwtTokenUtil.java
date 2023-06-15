@@ -1,16 +1,24 @@
 package com.example.demo.config.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import java.io.Serializable;
+import java.util.Base64;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Header;
+import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JwtTokenUtil implements Serializable {
@@ -22,7 +30,7 @@ public class JwtTokenUtil implements Serializable {
 
     private static final String AUDIENCE_MOBILE = "mobile";
     private static final String AUDIENCE_TABLET = "tablet";
-
+    
     @Value("${jwt.secret}")
     private String secret;
 
@@ -78,12 +86,17 @@ public class JwtTokenUtil implements Serializable {
     }
 
     private Claims getClaimsFromToken(String token) {
-        Claims claims;
+        byte[] secretKeyBytes = Base64.getEncoder().encode(secret.getBytes());
+    	SecretKey secretKey = new SecretKeySpec(secretKeyBytes, SignatureAlgorithm.HS512.getJcaName());
+
+    	Claims claims;
         try {
-            claims = Jwts.parser()
-                    .setSigningKey(secret)
-                    .parseClaimsJws(token)
-                    .getBody();
+        	JwtParser jwtParser = Jwts.parserBuilder()
+        	        .setSigningKey(secretKey)
+        	        .build();
+        	
+        	Jwt<Header, Claims> jwt = jwtParser.parse(token);
+        	claims = jwt.getBody();
         }
         catch (Exception e) {
             claims = null;
@@ -118,10 +131,13 @@ public class JwtTokenUtil implements Serializable {
     }
 
     String generateToken(Map<String, Object> claims) {
+    	byte[] secretKeyBytes = Base64.getEncoder().encode(secret.getBytes());
+    	SecretKey secretKey = new SecretKeySpec(secretKeyBytes, SignatureAlgorithm.HS512.getJcaName());
+    	
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(secretKey, SignatureAlgorithm.HS512)
                 .compact();
     }
 
