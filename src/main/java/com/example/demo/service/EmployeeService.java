@@ -18,6 +18,10 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import jakarta.persistence.criteria.Predicate;
 
 /**
@@ -26,9 +30,9 @@ import jakarta.persistence.criteria.Predicate;
  */
 @Service
 public class EmployeeService {
-    @Autowired
-    IEmployeeRepository repo;
-
+    
+    private IEmployeeRepository repo;
+    
 	/**
 	 * Searches for books based on the provided search term.
 	 *
@@ -63,6 +67,10 @@ public class EmployeeService {
 
 	public Optional<Employee> findById(long employeeId) {
 		return repo.findById(employeeId);
+	}
+	
+	public Employee findByEmail(String email) {
+		return repo.findEmployeeByEmail(email);
 	}
 
     public void makeAdmin(long id) {

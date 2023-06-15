@@ -2,6 +2,11 @@ package com.example.demo.entity;
 
 import java.util.List;
 
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import com.example.demo.security.Authority;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -44,6 +49,15 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
 	@JsonIgnore
     private List<Loan> loans;
+    
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "EMPLOYEE_AUTHORITY",
+            joinColumns = {@JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
+    private List<Authority> authorities = new ArrayList<>();
+    
+    
 
     public Employee(){}
 
@@ -134,4 +148,16 @@ public class Employee {
                 '}';
     }
 
+
+	public List<Authority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return this.authorities;
+	}
+	
+	public void setAuthorities(List<Authority> authorities) {
+		// TODO Auto-generated method stub
+		this.authorities = authorities;
+	}
+
+	
 }
