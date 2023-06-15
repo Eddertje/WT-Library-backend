@@ -72,6 +72,11 @@ public class BookService {
 		repo.save(book);
 	}
 
+	/**
+	 * Prepares the output of findBooksAndReservations into a DTO
+	 * @param getBookDto
+	 * @return A list of books + reservation tied to those
+	 */
 	public Iterable<FindBookDto> searchBooksAndReservation(GetBookDto getBookDto) {
 		List<Tuple> findBookTuples = repo.findBooksAndReservations(getBookDto.getId(), getBookDto.getSearchTerm());
 
@@ -88,6 +93,10 @@ public class BookService {
 		return findBookDtos;
 	}
 
+	/**
+	 * Casts a known long type to long
+	 * @return
+	 */
 	public long extract(int i, Tuple t) {
 		if (t.get(i) == null) {
 			return -1;

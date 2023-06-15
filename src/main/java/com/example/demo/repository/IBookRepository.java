@@ -9,6 +9,10 @@ import com.example.demo.entity.Book;
 
 public interface IBookRepository extends CrudRepository<Book, Long>, org.springframework.data.jpa.repository.JpaSpecificationExecutor<Book> {
 
+    /**
+     * Querry that finds all books and also returns a reservation if a specific user has one.
+     * @return
+     */
     @Query(value = """
             SELECT b.id, b.title, b.writer, b.isbn, r.id
             FROM book b LEFT OUTER JOIN reservation r ON b.id = r.book_id AND r.employee_id = ?1

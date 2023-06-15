@@ -38,7 +38,7 @@ public class BookController {
 	/**
 	 * Searches books and reservations based on the given id and search term.
 	 *
-	 * @return an iterable collection of books matching the search criteria
+	 * @return an iterable collection of books matching the search criteria + reservations of the given employee tied to those books
 	 */
 	@RequestMapping("books/booksReservation")
 	public Iterable<FindBookDto> searchBooksAndReservation(@RequestBody GetBookDto getBookDto) {
