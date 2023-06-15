@@ -1,7 +1,6 @@
 package com.example.demo.config.jwt;
 
 import com.example.demo.security.Authority;
-import com.example.demo.config.jwt.JwtUser;
 import com.example.demo.entity.Employee;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.dto.FindBookDto;
@@ -32,7 +33,9 @@ public class BookController {
 	 */
 	@RequestMapping("books/search")
 	public Iterable<Book> searchBooks(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
-	    return service.searchBooks(searchTerm);
+	    List<Book> test = service.searchBooks(searchTerm);
+	    System.out.println(test);
+	    return test;
 	}
 
 	/**
@@ -50,7 +53,9 @@ public class BookController {
 	 */
 	@RequestMapping("books/all")
 	public Iterable<Book> findAll(){
-		return service.findAll();
+		Iterable<Book> test = service.findAll();
+		System.out.println(test);
+		return test;
 	}
 	
 	/**

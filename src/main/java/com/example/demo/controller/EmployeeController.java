@@ -1,10 +1,15 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Book;
+
 import com.example.demo.entity.Employee;
 import com.example.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * The controller for all the endpoints regarding the Employee Enitty
@@ -27,6 +32,27 @@ public class EmployeeController {
 	public Iterable<Employee> searchEmployees(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
 	    return employeeService.searchEmployees(searchTerm);
 	}
+	
+	@RequestMapping("admin/employees/search2")
+	public Iterable<Employee> searchEmployees() {
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("test");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		
+	    Iterable<Employee> test = employeeService.searchEmployees();
+	    System.out.println(test);
+	    return test;
+	}
     
     /**
 	 * method/endpoint that creates/registers an employee based on the input given
@@ -34,7 +60,7 @@ public class EmployeeController {
 	 * @param newEmployee is the new object of the employee with all its values within
 	 * @return the employee that was just created
 	 */
-    @RequestMapping(value = "admin/employee/register", method = RequestMethod.POST)
+    @RequestMapping(value = "employee/register", method = RequestMethod.POST)
     public Employee create(@RequestBody Employee newEmployee) {
         return employeeService.newEmployee(newEmployee);
     }
@@ -55,7 +81,7 @@ public class EmployeeController {
 	 * 
 	 * @param the id (as a string) for the employee that is selectd
 	 */
-    @RequestMapping("admin/employee/makeAdmin")
+    @RequestMapping("employee/makeAdmin")
     public void makeAdmin(@RequestParam(value = "id") String id) {
         employeeService.makeAdmin(Long.parseLong(id));
     }
@@ -65,7 +91,7 @@ public class EmployeeController {
 	 * 
 	 * @param the id (as a string) for the employee that is selected
 	 */
-    @RequestMapping("admin/employee/makeInactive")
+    @RequestMapping("employee/makeInactive")
     public void makeInactive(@RequestParam(value = "id") String id) {
         employeeService.makeInactive(Long.parseLong(id));
     }

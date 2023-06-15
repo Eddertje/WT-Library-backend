@@ -69,9 +69,10 @@ public class ReservationController {
 	public Reservation create(@RequestBody SaveReservationDto dto) {
 		// Book vinden
 		Optional<Book> bookOptional = bookService.findById(dto.getBookId());
-
+		System.out.println(bookOptional.get().getTitle());
 		// Employee vinden
 		Optional<Employee> employeeOptional = employeeService.findById(dto.getEmployeeId()); 
+		System.out.println(employeeOptional.get().getEmail());
 
 		Reservation reservation = new Reservation();
 		
