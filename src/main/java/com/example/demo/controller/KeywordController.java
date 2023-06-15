@@ -33,7 +33,7 @@ public class KeywordController {
      * @param dto The request body DTO containing the keyword value and the bookId
      * @return The created keyword.
      */
-	@RequestMapping(value = "keywords/make", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/keywords/make", method = RequestMethod.POST)
 	public Keyword addKeyword(@RequestBody SaveKeywordDto dto) {
 	    String keywordValue = dto.getKeyword();
 	    Long bookId = dto.getBookId();
