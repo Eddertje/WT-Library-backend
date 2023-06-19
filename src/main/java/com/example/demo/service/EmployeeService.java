@@ -5,6 +5,7 @@ import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -29,15 +30,15 @@ import com.example.demo.security.AuthorityRepository;
  */
 @Service
 public class EmployeeService {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
 	@Autowired
     private IEmployeeRepository repo;
 	
 	@Autowired
 	private AuthorityRepository authRepo;
-	
-    @Autowired
-    private PasswordEncoder passwordEncoder;
     
 	/**
 	 * Searches for books based on the provided search term.
@@ -125,30 +126,22 @@ public class EmployeeService {
         }
     }
 
-    public void changeLastName(Employee newEmployee) {
-        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
-        if(update.isPresent()) {
-            Employee employeeUpdate = update.get();
-            employeeUpdate.setLastName(newEmployee.getLastName());
-            repo.save(employeeUpdate);
+    /**
+     * Changes values of user if included in newEmployee
+     * @param newEmployee values to be changed
+     */
+    public void changeValues(Employee newEmployee) {
+        Employee employee = repo.findById(newEmployee.getEmployeeId()).get();
+        if(newEmployee.getFirstName() != null) {
+            employee.setFirstName(newEmployee.getFirstName());
         }
-    }
-
-    public void changeEmail(Employee newEmployee) {
-        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
-        if(update.isPresent()) {
-            Employee employeeUpdate = update.get();
-            employeeUpdate.setEmail(newEmployee.getEmail());
-            repo.save(employeeUpdate);
+        if(newEmployee.getLastName() != null) {
+            employee.setLastName(newEmployee.getLastName());
         }
-    }
-
-    public void changePassword(Employee newEmployee) {
-        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
-        if(update.isPresent()) {
-            Employee employeeUpdate = update.get();
-            employeeUpdate.setPassword(String.valueOf(newEmployee.getPassword().hashCode()));
-            repo.save(employeeUpdate);
+        if(newEmployee.getPassword() != null) {
+            employee.setPassword(passwordEncoder.encode(newEmployee.getPassword()));
+            System.out.println("hi");
         }
+        repo.save(employee);
     }
 }
