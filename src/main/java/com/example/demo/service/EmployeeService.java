@@ -5,6 +5,7 @@ import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -25,6 +26,9 @@ import com.example.demo.repository.IEmployeeRepository;
  */
 @Service
 public class EmployeeService {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
 	@Autowired
     private IEmployeeRepository repo;
@@ -103,34 +107,22 @@ public class EmployeeService {
         }
     }
 
-    public void changeLastName(Employee newEmployee) {
-        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
-        if(update.isPresent()) {
-            Employee employeeUpdate = update.get();
-            employeeUpdate.setLastName(newEmployee.getLastName());
-            repo.save(employeeUpdate);
-        }
-    }
-
-    public void changeEmail(Employee newEmployee) {
-        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
-        if(update.isPresent()) {
-            Employee employeeUpdate = update.get();
-            employeeUpdate.setEmail(newEmployee.getEmail());
-            repo.save(employeeUpdate);
-        }
-    }
-
-    public void changePassword(Employee newEmployee) {
-        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
-        if(update.isPresent()) {
-            Employee employeeUpdate = update.get();
-            employeeUpdate.setPassword(String.valueOf(newEmployee.getPassword().hashCode()));
-            repo.save(employeeUpdate);
-        }
-    }
-
     public Employee get(Employee user) {
         return repo.findEmployeeByEmail(user.getEmail());
+    }
+
+    public void changeValues(Employee newEmployee) {
+        Employee employee = repo.findById(newEmployee.getEmployeeId()).get();
+        if(newEmployee.getFirstName() != null) {
+            employee.setFirstName(newEmployee.getFirstName());
+        }
+        if(newEmployee.getLastName() != null) {
+            employee.setLastName(newEmployee.getLastName());
+        }
+        if(newEmployee.getPassword() != null) {
+            employee.setPassword(passwordEncoder.encode(newEmployee.getPassword()));
+            System.out.println("hi");
+        }
+        repo.save(employee);
     }
 }

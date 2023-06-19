@@ -102,33 +102,13 @@ public class EmployeeController {
     }
 
     /**
-	 * method/endpoint that changes the last name of the employee (through ID)
+	 * method/endpoint that changes values of the employee (through ID)
 	 * 
 	 * @param newEmployee is the employee that is used in which the new last name resides
 	 */
-    @RequestMapping(value = "employee/changeLastName", method = RequestMethod.POST)
-    public void changeLastName(@RequestBody Employee newEmployee) {
-        employeeService.changeLastName(newEmployee);
-    }
-
-    /**
-	 * method/endpoint that changes the email of the employee (through ID)
-	 * 
-	 * @param newEmployee is the email that is used in which the new email resides
-	 */
-    @RequestMapping(value = "employee/changeEmail", method = RequestMethod.POST)
-    public void changeEmail(@RequestBody Employee newEmployee) {
-        employeeService.changeEmail(newEmployee);
-    }
-
-    /**
-	 * method/endpoint that changes the first password of the employee
-	 * 
-	 * @param newEmployee is the employee that is used in which the new password resides
-	 */
-    @RequestMapping(value = "employee/changePassword", method = RequestMethod.POST)
-    public void changePassword(@RequestBody Employee newEmployee) {
-        employeeService.changePassword(newEmployee);
+    @RequestMapping(value = "employee/changeValues", method = RequestMethod.POST)
+    public void changeValues(@RequestBody Employee newEmployee) {
+        employeeService.changeValues(newEmployee);
     }
 
 }
