@@ -11,6 +11,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.demo.entity.Employee;
 import com.example.demo.repository.IEmployeeRepository;
@@ -34,6 +35,9 @@ public class EmployeeService {
 	
 	@Autowired
 	private AuthorityRepository authRepo;
+	
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
 	/**
 	 * Searches for books based on the provided search term.
@@ -59,9 +63,13 @@ public class EmployeeService {
     }
 
 
+	/**
+	 * creates new employee and necessary roles
+	 * @param newEmployee the new employee that needs to be added
+	 * @return the new employee
+	 */
     public Employee newEmployee(Employee newEmployee) {
-        newEmployee.setPassword(String.valueOf(newEmployee.getPassword().hashCode()));
-        //repo.save(newEmployee);
+        newEmployee.setPassword(this.passwordEncoder.encode(newEmployee.getPassword()));
         
         //setting authorities (user and according to admin property also admin
         Authority authorityU = this.authRepo.findByName(AuthorityName.USER);
