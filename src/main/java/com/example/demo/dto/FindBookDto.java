@@ -13,6 +13,8 @@ public class FindBookDto {
     private String isbn;
 
     private long reservationId;
+    
+    private String photo;
 
     public String getTitle() {
         return title;
@@ -46,6 +48,14 @@ public class FindBookDto {
         this.reservationId = reservationId;
     }
 
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
     public long getId() {
         return id;
     }
@@ -54,12 +64,13 @@ public class FindBookDto {
         this.id = id;
     }
 
-    public FindBookDto(long id, String title, String writer, String isbn, long reservationId) {
+    public FindBookDto(long id, String title, String writer, String isbn, long reservationId, String photo) {
         this.id = id;
         this.title = title;
         this.writer = writer;
         this.isbn = isbn;
         this.reservationId = reservationId;
+        this.photo = photo;
     }
 
     public FindBookDto(){}
