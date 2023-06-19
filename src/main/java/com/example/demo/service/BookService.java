@@ -92,7 +92,8 @@ public class BookService {
 						t.get(1, String.class),
 						t.get(2, String.class),
 						t.get(3, String.class),
-						extract(4, t)
+						extract(4, t),
+						t.get(5, String.class)
 				))
 				.collect(Collectors.toList());
 

@@ -60,6 +60,17 @@ public class ReservationController {
 	}
 
 	/**
+	 * Searches reservation for specified employee
+	 *
+	 * @param a user in the requestbody in which only the email field is necessary (all other fields can be undefined/empty)
+	 * @return an iterable collection of Reservations matching the employee ID received from the Reservation
+	 */
+	@RequestMapping(value ="reservation/userByEmail", method= RequestMethod.POST)
+	public Iterable<Reservation> findByEmployeeId(@RequestBody Employee employee){
+		return service.findByEmployeeEmail(employee);
+	}
+
+	/**
 	 * Handles the creation of a new reservation.
 	 *
 	 * @param dto The DTO (Data Transfer Object) containing the reservation details.
