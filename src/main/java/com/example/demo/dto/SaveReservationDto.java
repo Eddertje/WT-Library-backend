@@ -6,6 +6,8 @@ public class SaveReservationDto {
 	
 	private int employeeId;
 
+	private String email;
+
 	public int getBookId() {
 		return bookId;
 	}
@@ -22,4 +24,11 @@ public class SaveReservationDto {
 		this.employeeId = employeeId;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }

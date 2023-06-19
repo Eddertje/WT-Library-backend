@@ -4,16 +4,16 @@ package com.example.demo.dto;
  * Dto used to send search data to the backend, currently used in: searchBooksAndReservation in the BookController
  */
 public class GetBookDto {
-    private long id;
+    private String email;
 
     private String searchTerm;
 
-    public long getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getSearchTerm() {
@@ -24,10 +24,4 @@ public class GetBookDto {
         this.searchTerm = searchTerm;
     }
 
-    public GetBookDto(long id, String searchTerm) {
-        this.id = id;
-        this.searchTerm = searchTerm;
-    }
-
-    public GetBookDto(){}
 }
