@@ -82,11 +82,11 @@ public class ReservationService {
 
 	/**
 	 * Finds reservations tied to given employee.
-	 * @param a
-	 * @return
+	 * @param employee contains the email needed to find the id
+	 * @return Reservations tied to the employee
 	 */
-	public Iterable<Reservation> findByEmployeeEmail(Employee a) {
-		Employee employee = employeeRepo.findEmployeeByEmail(a.getEmail());
-		return repo.findByEmployee_idOrderByAllowedDescReservationDateDesc(employee.getEmployeeId());
+	public Iterable<Reservation> findByEmployeeEmail(Employee employee) {
+		Employee employee1 = employeeRepo.findEmployeeByEmail(employee.getEmail());
+		return repo.findByEmployee_idOrderByAllowedDescReservationDateDesc(employee1.getEmployeeId());
 	}
 }

@@ -66,8 +66,8 @@ public class ReservationController {
 	 * @return an iterable collection of Reservations matching the employee ID received from the Reservation
 	 */
 	@RequestMapping(value ="reservation/userByEmail", method= RequestMethod.POST)
-	public Iterable<Reservation> findByEmployeeId(@RequestBody Employee a){
-		return service.findByEmployeeEmail(a);
+	public Iterable<Reservation> findByEmployeeId(@RequestBody Employee employee){
+		return service.findByEmployeeEmail(employee);
 	}
 
 	/**
