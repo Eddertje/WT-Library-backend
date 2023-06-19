@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.security.Authority;
@@ -29,6 +30,9 @@ public class InitService {
 
     @Autowired
     private IEmployeeRepository userRepository;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * Method that initialises authoritise, basic users johndoe (admin) and janedoe (user) [passwords2019]
@@ -57,7 +61,7 @@ public class InitService {
         user.setLastName("doe");
         user.setActive(true);
         user.setAdmin(true);
-        user.setPassword("$2a$04$mOcweZoue3.bVKiRrpPU8u1e734k2v1C0F5r8yOKYj2x5a1RrjR/O"); // password2019 bcrypted
+        user.setPassword(this.passwordEncoder.encode("password2019")); // password2019 bcrypted
         //check if default user doesn't already exist
         if(Objects.isNull(userRepository.findEmployeeByEmail(user.getEmail()))) {
             this.userRepository.save(user);
@@ -71,7 +75,7 @@ public class InitService {
         user.setLastName("doe");
         user.setActive(true);
         user.setAdmin(false);
-        user.setPassword("$2a$04$mOcweZoue3.bVKiRrpPU8u1e734k2v1C0F5r8yOKYj2x5a1RrjR/O"); // password2019 bcrypted
+        user.setPassword(this.passwordEncoder.encode("password2019")); // password2019 bcrypted
         //check if default user doesn't already exist
         if(Objects.isNull(userRepository.findEmployeeByEmail(user.getEmail()))) {
             this.userRepository.save(user);
