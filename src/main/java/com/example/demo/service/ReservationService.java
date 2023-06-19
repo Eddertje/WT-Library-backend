@@ -3,6 +3,8 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.demo.entity.Employee;
+import com.example.demo.repository.IEmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class ReservationService {
 	
 	@Autowired
 	private IReservationRepository repo;
+
+	@Autowired
+	private IEmployeeRepository employeeRepo;
 		
 	/**
 	 * Searches for books based on the provided search term.
@@ -74,5 +79,14 @@ public class ReservationService {
 		// TODO Auto-generated method stub
 		repo.deleteById(reservation.getId());
 	}
-	
+
+	/**
+	 * Finds reservations tied to given employee.
+	 * @param employee contains the email needed to find the id
+	 * @return Reservations tied to the employee
+	 */
+	public Iterable<Reservation> findByEmployeeEmail(Employee employee) {
+		Employee employee1 = employeeRepo.findEmployeeByEmail(employee.getEmail());
+		return repo.findByEmployee_idOrderByAllowedDescReservationDateDesc(employee1.getEmployeeId());
+	}
 }

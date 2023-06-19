@@ -62,6 +62,17 @@ public class LoanController {
 	}
 
 	/**
+	 * Searches loan for specified employee
+	 *
+	 * @param employee in the requestbody in which only the email field is necessary (all other fields can be undefined/empty)
+	 * @return an iterable collection of Loan-Employee-Copy-Dto's matching the employee ID received from the loan
+	 */
+	@RequestMapping(value ="loan/userByEmail", method= RequestMethod.POST)
+	public Iterable<LoanEmployeeCopyDto> findByEmail(@RequestBody Employee employee){
+		return service.findByEmail(employee);
+	}
+
+	/**
 	 * Creates a new loan based on the provided data.
 	 *
 	 * @param dto The data to create the loan from (copyId and employeeId)
