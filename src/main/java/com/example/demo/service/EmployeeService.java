@@ -103,6 +103,8 @@ public class EmployeeService {
         if(update.isPresent()) {
             Employee employeeUpdate = update.get();
             employeeUpdate.setAdmin(true);
+            Authority authorityA = this.authRepo.findByName(AuthorityName.ADMIN);
+            employeeUpdate.getAuthorities().add(authorityA);
             repo.save(employeeUpdate);
         }
     }
@@ -114,15 +116,6 @@ public class EmployeeService {
             Employee inActive = new Employee();
             inActive.setEmployeeId(employeeUpdate.getEmployeeId());
             repo.save(inActive);
-        }
-    }
-
-    public void changeFirstName(Employee newEmployee) {
-        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
-        if(update.isPresent()) {
-            Employee employeeUpdate = update.get();
-            employeeUpdate.setFirstName(newEmployee.getFirstName());
-            repo.save(employeeUpdate);
         }
     }
 
@@ -140,7 +133,9 @@ public class EmployeeService {
         }
         if(newEmployee.getPassword() != null) {
             employee.setPassword(passwordEncoder.encode(newEmployee.getPassword()));
-            System.out.println("hi");
+        }
+        if(newEmployee.getEmail() != null) {
+            employee.setEmail(newEmployee.getEmail());
         }
         repo.save(employee);
     }

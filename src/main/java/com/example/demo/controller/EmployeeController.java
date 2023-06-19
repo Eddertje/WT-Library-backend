@@ -33,8 +33,9 @@ public class EmployeeController {
 	    return employeeService.searchEmployees(searchTerm);
 	}
 	
-	@RequestMapping("admin/employees/search2")
+	@RequestMapping(value = "admin/employee/search2", method = RequestMethod.POST)
 	public Iterable<Employee> searchEmployees() {
+		System.out.println("test");
 	    return employeeService.searchEmployees();
 	}
     
@@ -76,7 +77,7 @@ public class EmployeeController {
 	 * 
 	 * @param the id (as a string) for the employee that is selectd
 	 */
-    @RequestMapping("employee/makeAdmin")
+    @RequestMapping("admin/employee/makeAdmin")
     public void makeAdmin(@RequestParam(value = "id") String id) {
         employeeService.makeAdmin(Long.parseLong(id));
     }
@@ -86,7 +87,7 @@ public class EmployeeController {
 	 * 
 	 * @param the id (as a string) for the employee that is selected
 	 */
-    @RequestMapping("employee/makeInactive")
+    @RequestMapping("admin/employee/makeInactive")
     public void makeInactive(@RequestParam(value = "id") String id) {
         employeeService.makeInactive(Long.parseLong(id));
     }
