@@ -1,8 +1,7 @@
 package com.example.demo.entity;
 
 import java.util.List;
-
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.example.demo.security.Authority;
@@ -170,6 +169,5 @@ public class Employee {
 		// TODO Auto-generated method stub
 		this.authorities = authorities;
 	}
-
 	
 }

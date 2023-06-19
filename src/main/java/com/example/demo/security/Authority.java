@@ -1,10 +1,12 @@
 package com.example.demo.security;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 
 import com.example.demo.entity.Employee;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -23,12 +25,12 @@ public class Authority {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+	@Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private AuthorityName name;
 
     @ManyToMany(mappedBy = "authorities")
-    //@JsonIgnore
+    @JsonIgnore
     @JsonManagedReference
     private List<Employee> employees;
 
@@ -55,4 +57,9 @@ public class Authority {
 	public void setUsers(List<Employee> employees) {
 		this.employees = employees;
 	} 
+	
+    @Override
+	public String toString() {
+		return "Authority [id=" + id + ", name=" + name + ", employees=" + employees + "]";
+	}
 }

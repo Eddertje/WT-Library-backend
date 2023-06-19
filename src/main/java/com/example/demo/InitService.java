@@ -31,13 +31,23 @@ public class InitService {
         this.userRepository.deleteAll();
         this.authorityRepository.deleteAll();
 
+        //create basic user john doe (admin)
         Employee user = new Employee();
         user.setEmail("johndoe"); // not to be confused with the user accessing the DB
+        user.setFirstName("john");
+        user.setLastName("doe");
+        user.setActive(true);
+        user.setAdmin(true);
         user.setPassword("$2a$04$mOcweZoue3.bVKiRrpPU8u1e734k2v1C0F5r8yOKYj2x5a1RrjR/O"); // password2019 bcrypted
         this.userRepository.save(user);
 
+        //create basic user jane doe (not-admin)
         user = new Employee();
         user.setEmail("janedoe");
+        user.setFirstName("jane");
+        user.setLastName("doe");
+        user.setActive(true);
+        user.setAdmin(false);
         user.setPassword("$2a$04$mOcweZoue3.bVKiRrpPU8u1e734k2v1C0F5r8yOKYj2x5a1RrjR/O"); // password2019 bcrypted
         this.userRepository.save(user);
 

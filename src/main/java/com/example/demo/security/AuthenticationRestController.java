@@ -93,6 +93,7 @@ public class AuthenticationRestController {
 
         return ResponseEntity.ok().build();
     }
+    
     // get the logged in user (JwtUser)
     @GetMapping("user")
     public JwtUser getAuthenticatedUser(HttpServletRequest request) {
