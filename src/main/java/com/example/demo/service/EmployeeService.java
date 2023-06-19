@@ -14,6 +14,9 @@ import org.springframework.data.jpa.domain.Specification;
 
 import com.example.demo.entity.Employee;
 import com.example.demo.repository.IEmployeeRepository;
+import com.example.demo.security.Authority;
+import com.example.demo.security.AuthorityName;
+import com.example.demo.security.AuthorityRepository;
 
 
 
@@ -28,6 +31,9 @@ public class EmployeeService {
     
 	@Autowired
     private IEmployeeRepository repo;
+	
+	@Autowired
+	private AuthorityRepository authRepo;
     
 	/**
 	 * Searches for books based on the provided search term.
@@ -50,12 +56,20 @@ public class EmployeeService {
 	
 	public Iterable<Employee> searchEmployees() {
 		return repo.findAll();
-
     }
 
 
     public Employee newEmployee(Employee newEmployee) {
         newEmployee.setPassword(String.valueOf(newEmployee.getPassword().hashCode()));
+        //repo.save(newEmployee);
+        
+        //setting authorities (user and according to admin property also admin
+        Authority authorityU = this.authRepo.findByName(AuthorityName.USER);
+        newEmployee.getAuthorities().add(authorityU);
+        if (newEmployee.isAdmin()) {
+        	Authority authorityA = this.authRepo.findByName(AuthorityName.ADMIN);
+            newEmployee.getAuthorities().add(authorityA);
+        }
         return repo.save(newEmployee);
     }
 
