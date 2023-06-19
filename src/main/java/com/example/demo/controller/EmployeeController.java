@@ -44,7 +44,7 @@ public class EmployeeController {
 	 * @param newEmployee is the new object of the employee with all its values within
 	 * @return the employee that was just created
 	 */
-    @RequestMapping(value = "employee/register", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/employee/register", method = RequestMethod.POST)
     public Employee create(@RequestBody Employee newEmployee) {
         return employeeService.newEmployee(newEmployee);
     }
