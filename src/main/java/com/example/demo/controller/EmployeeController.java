@@ -68,7 +68,7 @@ public class EmployeeController {
 	 */
 	@RequestMapping(value = "employee/get", method = RequestMethod.POST)
 	public Employee get(@RequestBody Employee user) {
-		return employeeService.get(user);
+		return employeeService.findByEmail(user.getEmail());
 	}
 
     /**

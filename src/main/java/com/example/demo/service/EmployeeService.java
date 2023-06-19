@@ -126,10 +126,10 @@ public class EmployeeService {
         }
     }
 
-    public Employee get(Employee user) {
-        return repo.findEmployeeByEmail(user.getEmail());
-    }
-
+    /**
+     * Changes values of user if included in newEmployee
+     * @param newEmployee values to be changed
+     */
     public void changeValues(Employee newEmployee) {
         Employee employee = repo.findById(newEmployee.getEmployeeId()).get();
         if(newEmployee.getFirstName() != null) {
