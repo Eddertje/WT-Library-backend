@@ -98,6 +98,10 @@ public class EmployeeService {
 		return repo.findEmployeeByEmail(email);
 	}
 
+	/**
+	 * Function that makes an indicated emloyee an admin including authority roles
+	 * @param id of the employee that you would like to make admin
+	 */
     public void makeAdmin(long id) {
         Optional<Employee> update = repo.findById(id);
         if(update.isPresent()) {
@@ -109,6 +113,10 @@ public class EmployeeService {
         }
     }
 
+    /**
+     * method that makes an indicated employee inactive by resetting all values to null
+     * @param id of the employee that you would like to make admin
+     */
     public void makeInactive(long id) {
         Optional<Employee> update = repo.findById(id);
         if(update.isPresent()) {

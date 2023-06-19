@@ -33,6 +33,10 @@ public class EmployeeController {
 	    return employeeService.searchEmployees(searchTerm);
 	}
 	
+	/**
+	 * method/endpoint that searches all employees
+	 * @return an iterable collectino of employees matching the search criteria
+	 */
 	@RequestMapping(value = "admin/employee/search2", method = RequestMethod.POST)
 	public Iterable<Employee> searchEmployees() {
 		System.out.println("test");
@@ -90,16 +94,6 @@ public class EmployeeController {
     @RequestMapping("admin/employee/makeInactive")
     public void makeInactive(@RequestParam(value = "id") String id) {
         employeeService.makeInactive(Long.parseLong(id));
-    }
-
-    /**
-	 * method/endpoint that changes the first name of the employee (through ID)
-	 * 
-	 * @param newEmployee is the employee that is used in which the new first name resides
-	 */
-    @RequestMapping(value = "employee/changeFirstName", method = RequestMethod.POST)
-    public void changeFirstName(@RequestBody Employee newEmployee) {
-       employeeService.changeFirstName(newEmployee);
     }
 
     /**
