@@ -42,9 +42,12 @@ public class Book {
 	
 	@Column(nullable = false)
 	private boolean available;
-	
+
 	@Column(nullable = false)
 	private int stock;
+	
+	@Column()
+	private double avgScore;
 	
 	@Column(nullable = false)
 	private boolean active;
@@ -74,6 +77,14 @@ public class Book {
 
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
+	}
+
+	public double getAvgScore() {
+		return avgScore;
+	}
+
+	public void setAvgScore(int avgScore) {
+		this.avgScore = avgScore;
 	}
 
 	public String getTitle() {
