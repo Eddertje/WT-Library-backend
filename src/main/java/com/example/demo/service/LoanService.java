@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
 
+import com.example.demo.entity.Employee;
+import com.example.demo.repository.IEmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ public class LoanService {
 	
 	@Autowired
 	private ILoanRepository repo;
+
+	@Autowired
+	private IEmployeeRepository employeeRepo;
 	
 	public Iterable<Loan> findAll() {
 		// TODO Auto-generated method stub
@@ -109,4 +114,16 @@ public class LoanService {
 		return newDto;
 	}
 
+	/**
+	 * Retrieves a list of loans for a specific employee ordered by return date in ascending order and loan date in ascending order.
+	 * @param employee The employee containing the email with which the employee ID can be found. This is used to retrieve the loans.
+	 * @return A list of LoanEmployeeCopyDto objects representing the loans of the specified employee.
+	 */
+    public Iterable<LoanEmployeeCopyDto> findByEmail(Employee employee) {
+		Employee employee1 = employeeRepo.findEmployeeByEmail(employee.getEmail());
+		List<Loan> loans = repo.findByEmployee_idOrderByReturnDateAscLoanDateAsc(employee1.getEmployeeId());
+		return loans.stream()
+				.map(LoanEmployeeCopyDto::new)
+				.collect(Collectors.toList());
+    }
 }

@@ -19,8 +19,5 @@ public interface IReservationRepository extends CrudRepository<Reservation, Long
 	 * @return the list of reservations attached to this employee
 	 */
 	Iterable<Reservation> findByEmployee_idOrderByAllowedDescReservationDateDesc(long employeeId);
-	
-	
-
 
 }
