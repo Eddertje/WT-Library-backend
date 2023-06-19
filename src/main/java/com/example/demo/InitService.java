@@ -1,6 +1,9 @@
 package com.example.demo;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.security.Authority;
@@ -13,7 +16,11 @@ import com.example.demo.repository.IEmployeeRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 
-
+/**
+ * A method that gets called within the framwork that serves as initiation of roles and basic users
+ * 
+ *
+ */
 @Service
 public class InitService {
 
@@ -23,14 +30,26 @@ public class InitService {
     @Autowired
     private IEmployeeRepository userRepository;
 
+    /**
+     * Method that initialises authoritise, basic users johndoe (admin) and janedoe (user) [passwords2019]
+     */
     @Transactional
     @PostConstruct
     public void initUsers() {
 
 
-        this.userRepository.deleteAll();
-        this.authorityRepository.deleteAll();
-
+        //this.userRepository.deleteAll();
+        //this.authorityRepository.deleteAll();
+    	
+    	//checking if authorities exist
+        for (AuthorityName authorityName : AuthorityName.values()) {
+        	if(Objects.isNull(authorityRepository.findByName(authorityName))) {
+        		Authority authority = new Authority();
+                authority.setName(authorityName);
+                authorityRepository.save(authority);
+            }
+        }
+    	
         //create basic user john doe (admin)
         Employee user = new Employee();
         user.setEmail("johndoe"); // not to be confused with the user accessing the DB
@@ -39,7 +58,11 @@ public class InitService {
         user.setActive(true);
         user.setAdmin(true);
         user.setPassword("$2a$04$mOcweZoue3.bVKiRrpPU8u1e734k2v1C0F5r8yOKYj2x5a1RrjR/O"); // password2019 bcrypted
-        this.userRepository.save(user);
+        //check if default user doesn't already exist
+        if(Objects.isNull(userRepository.findEmployeeByEmail(user.getEmail()))) {
+            this.userRepository.save(user);
+            initAuthorities(user, true);
+        }
 
         //create basic user jane doe (not-admin)
         user = new Employee();
@@ -49,24 +72,26 @@ public class InitService {
         user.setActive(true);
         user.setAdmin(false);
         user.setPassword("$2a$04$mOcweZoue3.bVKiRrpPU8u1e734k2v1C0F5r8yOKYj2x5a1RrjR/O"); // password2019 bcrypted
-        this.userRepository.save(user);
-
-        initAuthorities();
+        //check if default user doesn't already exist
+        if(Objects.isNull(userRepository.findEmployeeByEmail(user.getEmail()))) {
+            this.userRepository.save(user);
+            initAuthorities(user, false);
+        }
     }
 
-    private void initAuthorities() {
-        // John has authority USER and ADMIN
-        Employee user = this.userRepository.findEmployeeByEmail("johndoe");
-        for (AuthorityName authorityName : AuthorityName.values()) {
-            Authority authority = new Authority();
-            authority.setName(authorityName);
-            user.getAuthorities().add(authority);
-        }
-        this.userRepository.save(user);
-        // Jane has authority USER
-        user = this.userRepository.findEmployeeByEmail("janedoe");
+    /**
+     * method to initialise basic user authorities based on boolean admin
+     * @param user the user for which you want to set authorities
+     * @param admin a boolean that signifies if the user should have admin role
+     */
+    private void initAuthorities(Employee user, Boolean admin) {
         Authority authority = this.authorityRepository.findByName(AuthorityName.USER);
         user.getAuthorities().add(authority);
-        this.userRepository.save(user);
+    	if(admin) {
+    		//add admin role
+    		authority = this.authorityRepository.findByName(AuthorityName.ADMIN);
+            user.getAuthorities().add(authority);
+    	}
+       this.userRepository.save(user);
     }
 }
