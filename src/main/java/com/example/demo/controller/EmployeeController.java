@@ -60,6 +60,17 @@ public class EmployeeController {
         return employeeService.login(login);
     }
 
+	/**
+	 * method/endpoint that serves as a getter
+	 *
+	 * @param user is the employee object through which the email is given/received
+	 * @return the employee found in the database based on the email
+	 */
+	@RequestMapping(value = "employee/get", method = RequestMethod.POST)
+	public Employee get(@RequestBody Employee user) {
+		return employeeService.get(user);
+	}
+
     /**
 	 * method/endpoint that changes the selected user (through ID) to an admin
 	 * 

@@ -129,4 +129,8 @@ public class EmployeeService {
             repo.save(employeeUpdate);
         }
     }
+
+    public Employee get(Employee user) {
+        return repo.findEmployeeByEmail(user.getEmail());
+    }
 }
