@@ -83,6 +83,33 @@ public class ReservationController {
 
 		return service.save(reservation);
 	}
+
+	/**
+	 * Handles the creation of a new reservation.
+	 *
+	 * @param dto The DTO (Data Transfer Object) containing the reservation details.
+	 * @return The created reservation.
+	 */
+	@RequestMapping(value="reservation/makeWithEmail", method = RequestMethod.POST)
+	public Reservation createWithEmail(@RequestBody SaveReservationDto dto) {
+		// Book vinden
+		Optional<Book> bookOptional = bookService.findById(dto.getBookId());
+		System.out.println(bookOptional.get().getTitle());
+		// Employee vinden
+		Employee employeeOptional = employeeService.findByEmail(dto.getEmail());
+		System.out.println(employeeOptional.getEmail());
+
+		Reservation reservation = new Reservation();
+
+		reservation.setBook(bookOptional.get());
+		reservation.setEmployee(employeeOptional);
+		reservation.setReservationDate(LocalDate.now());
+		reservation.setAllowed(false);
+
+		return service.save(reservation);
+	}
+
+
 	
 	/**
 	 * Handles the update of an existing reservation.

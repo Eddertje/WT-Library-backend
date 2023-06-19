@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 import com.example.demo.dto.FindBookDto;
 import com.example.demo.dto.GetBookDto;
+import com.example.demo.entity.Employee;
+import com.example.demo.repository.IEmployeeRepository;
 import jakarta.persistence.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class BookService {
 	
 	@Autowired
 	private IBookRepository repo;
+
+	@Autowired
+	private IEmployeeRepository employeeRepo;
 
 	public Optional<Book> findById(long id) {
 		return repo.findById(id);
@@ -78,7 +83,8 @@ public class BookService {
 	 * @return A list of books + reservation tied to those
 	 */
 	public Iterable<FindBookDto> searchBooksAndReservation(GetBookDto getBookDto) {
-		List<Tuple> findBookTuples = repo.findBooksAndReservations(getBookDto.getId(), getBookDto.getSearchTerm());
+		Employee employee = employeeRepo.findEmployeeByEmail(getBookDto.getEmail());
+		List<Tuple> findBookTuples = repo.findBooksAndReservations(employee.getEmployeeId(), getBookDto.getSearchTerm());
 
 		List<FindBookDto> findBookDtos = findBookTuples.stream()
 				.map(t -> new FindBookDto(

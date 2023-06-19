@@ -16,6 +16,6 @@ public interface IEmployeeRepository extends CrudRepository<Employee, Long>,
             nativeQuery = true)
     Optional<Employee> login(String email, String password);
 
-	Employee findEmployeeByEmail(String username);
+	Employee findEmployeeByEmail(String email);
 
 }
