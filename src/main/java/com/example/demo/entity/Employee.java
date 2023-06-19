@@ -4,12 +4,24 @@ import java.util.List;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import com.example.demo.security.Authority;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.*;
 
 /**
  * A class that represents an employee/user. It has relations with Reservation and Copy
@@ -51,14 +63,14 @@ public class Employee {
     private List<Loan> loans;
     
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "EMPLOYEE_AUTHORITY",
-            joinColumns = {@JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
+    @JsonBackReference
+    //@JoinTable(
+    //        name = "EMPLOYEE_AUTHORITY",
+    //        joinColumns = {@JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "ID")},
+    //        inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
     private List<Authority> authorities = new ArrayList<>();
     
     
-
     public Employee(){}
 
     public Employee(long id, String firstName, String lastName, String email, String password, boolean active, boolean admin) {

@@ -5,13 +5,12 @@ import java.util.List;
 
 
 import com.example.demo.entity.Employee;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,7 +27,9 @@ public class Authority {
     @Enumerated(EnumType.STRING)
     private AuthorityName name;
 
-    @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "authorities")
+    //@JsonIgnore
+    @JsonManagedReference
     private List<Employee> employees;
 
 	public long getId() {

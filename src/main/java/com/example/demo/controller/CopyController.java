@@ -45,7 +45,7 @@ public class CopyController {
 	 * @param dto The DTO containing the copy details.
 	 * @return The created copy.
 	 */
-	@RequestMapping(value = "copy/create", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/copy/create", method = RequestMethod.POST)
 	public Copy create(@RequestBody saveCopyDto dto) {
 	    // Find the book by ID
 	    Optional<Book> bookOptional = bookService.findById(dto.getBookId());
@@ -64,7 +64,7 @@ public class CopyController {
 	 * @param id            The ID of the copy to update.
 	 * @param updatedCopy   The updated copy details.
 	 */
-	@RequestMapping(value = "copy/update/{id}", method = RequestMethod.PATCH)
+	@RequestMapping(value = "admin/copy/update/{id}", method = RequestMethod.PATCH)
 	public void update(@PathVariable Long id, @RequestBody Copy updatedCopy) {
 	    // Find the existing copy by ID
 	    Optional<Copy> existingCopy = service.findById(id);

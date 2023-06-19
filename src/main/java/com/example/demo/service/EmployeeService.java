@@ -1,28 +1,23 @@
 package com.example.demo.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.example.demo.entity.Book;
-import com.example.demo.entity.Employee;
-import com.example.demo.repository.IEmployeeRepository;
-
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import jakarta.persistence.criteria.Join;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.jpa.domain.Specification;
+
+import com.example.demo.entity.Employee;
+import com.example.demo.repository.IEmployeeRepository;
+
+
+
+
 
 /**
  * The service layer for the entity Employee 
@@ -31,6 +26,7 @@ import jakarta.persistence.criteria.Predicate;
 @Service
 public class EmployeeService {
     
+	@Autowired
     private IEmployeeRepository repo;
     
 	/**
@@ -51,6 +47,12 @@ public class EmployeeService {
             }
         });
     }
+	
+	public Iterable<Employee> searchEmployees() {
+		return repo.findAll();
+
+    }
+
 
     public Employee newEmployee(Employee newEmployee) {
         newEmployee.setPassword(String.valueOf(newEmployee.getPassword().hashCode()));

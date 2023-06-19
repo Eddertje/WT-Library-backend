@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.dto.FindBookDto;
@@ -59,7 +60,7 @@ public class BookController {
 	 * @param accepts Book within the request body with all the necessary fields
 	 * @return the just created book 
 	 */
-	@RequestMapping(value="books/create", method = RequestMethod.POST)
+	@RequestMapping(value="admin/books/create", method = RequestMethod.POST)
 	public Book create(@RequestBody Book newBook) {
 		newBook.setActive(true);
 		return service.createBook(newBook);
@@ -71,7 +72,7 @@ public class BookController {
 	 * @param booklist an arraylist of books to be created
 	 * @return an arraylist of just creatd books
 	 */
-	@RequestMapping(value="book/createAll", method = RequestMethod.POST)
+	@RequestMapping(value="admin/book/createAll", method = RequestMethod.POST)
 	public ArrayList<Book> create(@RequestBody ArrayList<Book> booklist) {	
 		for(Book book : booklist) {
 			book.setActive(true);
@@ -99,7 +100,7 @@ public class BookController {
 	 * @param updatedBook the 'new' book with updated fields
 	 * 
 	 */
-	@RequestMapping(value="book/update/{id}", method = RequestMethod.PATCH)
+	@RequestMapping(value="admin/book/update/{id}", method = RequestMethod.PATCH)
 	public void update(@PathVariable Long id, @RequestBody Book updatedBook){
 		Optional<Book> existingBook = service.findById(id);
 		

@@ -39,13 +39,13 @@ public class LoanController {
 	@Autowired
 	private ReservationService reservationService;
 
-	@RequestMapping(value = "loan/complete/{loanId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "admin/loan/complete/{loanId}", method = RequestMethod.PUT)
 	public Loan completeLoan(@PathVariable Long loanId) {
 		Loan updatedLoan = service.updateLoanReturnDate(loanId);
 		return updatedLoan;
 	}
 
-	@RequestMapping("loan/all")
+	@RequestMapping("admin/loan/all")
 	public Iterable<Loan> findAll(){
 		return service.findAll();
 	}
@@ -68,7 +68,7 @@ public class LoanController {
 	 * @return The created loan
 	 * @throws IllegalArgumentException If the copyId or employeeId is invalid
 	 */
-	@RequestMapping(value = "loan/make", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/loan/make", method = RequestMethod.POST)
 	public Loan create(@RequestBody SaveLoanDto dto) {
 	    Optional<Copy> optionalCopy = copyService.findById(dto.getCopyId());
 	    Optional<Employee> optionalEmployee = employeeService.findById(dto.getEmployeeId());
@@ -93,7 +93,7 @@ public class LoanController {
 	 * @throws IllegalArgumentException If the bookId or employeeId is invalid
 	 * @throws IllegalStateException    If there are no available copies of the book
 	 */
-	@RequestMapping(value = "loan/makeFromReservation", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/loan/makeFromReservation", method = RequestMethod.POST)
 	public Loan createFromReservation(@RequestBody LoanReservationDto dto) {
 		
 		SaveLoanDto loanDto = dto.getLoanDto();
@@ -124,12 +124,12 @@ public class LoanController {
 	 * @param searchTerm the term to search for
 	 * @return an iterable collection of Loan-Employee-Copy-Dto's matching the search criteria
 	 */
-	@RequestMapping("loans/search")
+	@RequestMapping("admin/loans/search")
 	public Iterable<LoanEmployeeCopyDto> searchLoans(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
 	    return service.searchLoans(searchTerm);
 	}
 	
-	@RequestMapping("loan/complete/{loan}")
+	@RequestMapping("admin/loan/complete/{loan}")
 	public LoanEmployeeCopyDto loanComplete(@PathVariable("loan") long loanID) {
 		return service.getLoanByIdDto(loanID);
 	}

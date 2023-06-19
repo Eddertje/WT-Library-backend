@@ -8,12 +8,11 @@ import com.example.demo.security.AuthorityName;
 import com.example.demo.security.AuthorityRepository;
 import com.example.demo.entity.Employee;
 import com.example.demo.repository.IEmployeeRepository;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
-import org.springframework.security.core.GrantedAuthority;
+
 
 @Service
 public class InitService {

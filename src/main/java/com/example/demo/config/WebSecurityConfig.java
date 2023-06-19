@@ -53,6 +53,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/auth/create").not().authenticated()
                 .requestMatchers("/api/**").hasAuthority("ADMIN")
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                .requestMatchers("/test/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated(); // for now, all users can login and do everything (e.g. UI stuff etc.)
 
         // Custom JWT based security filter

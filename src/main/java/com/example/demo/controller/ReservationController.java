@@ -38,12 +38,12 @@ public class ReservationController {
 	 * @param searchTerm the term to search for
 	 * @return an iterable collection of reservations matching the search criteria
 	 */
-	@RequestMapping("reservation/search")
+	@RequestMapping("admin/reservation/search")
 	public Iterable<Reservation> searchReservations(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
 	    return service.searchReservations(searchTerm);
 	}
 	
-	@RequestMapping("reservation/all")
+	@RequestMapping("admin/reservation/all")
 	public Iterable<Reservation> findAll(){
 		return service.findAll();
 	}
@@ -69,9 +69,10 @@ public class ReservationController {
 	public Reservation create(@RequestBody SaveReservationDto dto) {
 		// Book vinden
 		Optional<Book> bookOptional = bookService.findById(dto.getBookId());
-
+		System.out.println(bookOptional.get().getTitle());
 		// Employee vinden
 		Optional<Employee> employeeOptional = employeeService.findById(dto.getEmployeeId()); 
+		System.out.println(employeeOptional.get().getEmail());
 
 		Reservation reservation = new Reservation();
 		
@@ -90,7 +91,7 @@ public class ReservationController {
 	 * @return The updated reservation.
 	 * @throws IllegalArgumentException If the provided reservation ID is invalid.
 	 */
-	@RequestMapping(value = "reservation/update", method = RequestMethod.PUT)
+	@RequestMapping(value = "admin/reservation/update", method = RequestMethod.PUT)
 	public Reservation updateReservation(@RequestBody Reservation reservation) {
 	    Optional<Reservation> optionalReservation = service.findById(reservation.getId());
 

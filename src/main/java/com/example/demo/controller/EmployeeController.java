@@ -1,10 +1,15 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Book;
+
 import com.example.demo.entity.Employee;
 import com.example.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * The controller for all the endpoints regarding the Employee Enitty
@@ -23,9 +28,14 @@ public class EmployeeController {
 	 * @param searchTerm the term to search for
 	 * @return an iterable collection of employees matching the search criteria
 	 */
-	@RequestMapping("employees/search")
+	@RequestMapping("admin/employees/search")
 	public Iterable<Employee> searchEmployees(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
 	    return employeeService.searchEmployees(searchTerm);
+	}
+	
+	@RequestMapping("admin/employees/search2")
+	public Iterable<Employee> searchEmployees() {
+	    return employeeService.searchEmployees();
 	}
     
     /**
