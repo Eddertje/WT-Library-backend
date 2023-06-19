@@ -14,7 +14,7 @@ public interface IBookRepository extends CrudRepository<Book, Long>, org.springf
      * @return
      */
     @Query(value = """
-            SELECT b.id, b.title, b.writer, b.isbn, r.id
+            SELECT b.id, b.title, b.writer, b.isbn, r.id, b.photo
             FROM book b LEFT OUTER JOIN reservation r ON b.id = r.book_id AND r.employee_id = ?1
             WHERE b.title LIKE %?2% OR b.writer LIKE %?2% OR b.isbn LIKE %?2%
             """, nativeQuery = true
