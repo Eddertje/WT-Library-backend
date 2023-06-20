@@ -161,4 +161,17 @@ public class Book {
 	public void setCopies(List<Copy> copies) {
 		this.copies = copies;
 	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+	public void setAvgScore(double avgScore) {
+		this.avgScore = avgScore;
+	}
+	
 }
