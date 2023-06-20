@@ -61,6 +61,9 @@ public class Book {
     private List<Reservation> reservations;
 	
 	@OneToMany(mappedBy = "book")
+    private List<Review> reviews;
+	
+	@OneToMany(mappedBy = "book")
     private List<Copy> copies;
 
 	public long getId() {
@@ -81,10 +84,6 @@ public class Book {
 
 	public double getAvgScore() {
 		return avgScore;
-	}
-
-	public void setAvgScore(int avgScore) {
-		this.avgScore = avgScore;
 	}
 
 	public String getTitle() {
@@ -158,4 +157,17 @@ public class Book {
 	public void setCopies(List<Copy> copies) {
 		this.copies = copies;
 	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+	public void setAvgScore(double avgScore) {
+		this.avgScore = avgScore;
+	}
+	
 }
