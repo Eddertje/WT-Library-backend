@@ -86,10 +86,6 @@ public class Book {
 		return avgScore;
 	}
 
-	public void setAvgScore(int avgScore) {
-		this.avgScore = avgScore;
-	}
-
 	public String getTitle() {
 		return title;
 	}
