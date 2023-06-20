@@ -61,6 +61,9 @@ public class Book {
     private List<Reservation> reservations;
 	
 	@OneToMany(mappedBy = "book")
+    private List<Review> reviews;
+	
+	@OneToMany(mappedBy = "book")
     private List<Copy> copies;
 
 	public long getId() {

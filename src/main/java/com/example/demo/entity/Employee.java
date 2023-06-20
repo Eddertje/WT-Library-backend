@@ -44,6 +44,9 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
 	@JsonIgnore
     private List<Loan> loans;
+    
+	@OneToMany(mappedBy = "employee")
+    private List<Review> reviews;
 
     public Employee(){}
 
