@@ -98,15 +98,25 @@ public class EmployeeService {
 		return repo.findEmployeeByEmail(email);
 	}
 
+	/**
+	 * Function that makes an indicated emloyee an admin including authority roles
+	 * @param id of the employee that you would like to make admin
+	 */
     public void makeAdmin(long id) {
         Optional<Employee> update = repo.findById(id);
         if(update.isPresent()) {
             Employee employeeUpdate = update.get();
             employeeUpdate.setAdmin(true);
+            Authority authorityA = this.authRepo.findByName(AuthorityName.ADMIN);
+            employeeUpdate.getAuthorities().add(authorityA);
             repo.save(employeeUpdate);
         }
     }
 
+    /**
+     * method that makes an indicated employee inactive by resetting all values to null
+     * @param id of the employee that you would like to make admin
+     */
     public void makeInactive(long id) {
         Optional<Employee> update = repo.findById(id);
         if(update.isPresent()) {
@@ -114,15 +124,6 @@ public class EmployeeService {
             Employee inActive = new Employee();
             inActive.setEmployeeId(employeeUpdate.getEmployeeId());
             repo.save(inActive);
-        }
-    }
-
-    public void changeFirstName(Employee newEmployee) {
-        Optional<Employee> update = repo.findById(newEmployee.getEmployeeId());
-        if(update.isPresent()) {
-            Employee employeeUpdate = update.get();
-            employeeUpdate.setFirstName(newEmployee.getFirstName());
-            repo.save(employeeUpdate);
         }
     }
 
@@ -140,7 +141,9 @@ public class EmployeeService {
         }
         if(newEmployee.getPassword() != null) {
             employee.setPassword(passwordEncoder.encode(newEmployee.getPassword()));
-            System.out.println("hi");
+        }
+        if(newEmployee.getEmail() != null) {
+            employee.setEmail(newEmployee.getEmail());
         }
         repo.save(employee);
     }
