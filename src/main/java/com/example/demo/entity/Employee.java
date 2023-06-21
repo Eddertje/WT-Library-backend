@@ -60,7 +60,7 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
 	@JsonIgnore
     private List<Loan> loans;
-    
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference
     //@JoinTable(
@@ -69,7 +69,9 @@ public class Employee {
     //        inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
     private List<Authority> authorities = new ArrayList<>();
     
-    
+	@OneToMany(mappedBy = "employee")
+    private List<Review> reviews;
+
     public Employee(){}
 
     public Employee(long id, String firstName, String lastName, String email, String password, boolean active, boolean admin) {
@@ -169,5 +171,29 @@ public class Employee {
 		// TODO Auto-generated method stub
 		this.authorities = authorities;
 	}
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public List<Loan> getLoans() {
+		return loans;
+	}
+
+	public void setLoans(List<Loan> loans) {
+		this.loans = loans;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
 }

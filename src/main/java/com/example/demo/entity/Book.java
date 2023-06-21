@@ -42,9 +42,12 @@ public class Book {
 	
 	@Column(nullable = false)
 	private boolean available;
-	
+
 	@Column(nullable = false)
 	private int stock;
+	
+	@Column()
+	private double avgScore;
 	
 	@Column(nullable = false)
 	private boolean active;
@@ -56,6 +59,9 @@ public class Book {
 	@OneToMany(mappedBy = "book")
 	@JsonIgnore
     private List<Reservation> reservations;
+	
+	@OneToMany(mappedBy = "book")
+    private List<Review> reviews;
 	
 	@OneToMany(mappedBy = "book")
     private List<Copy> copies;
@@ -74,6 +80,10 @@ public class Book {
 
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
+	}
+
+	public double getAvgScore() {
+		return avgScore;
 	}
 
 	public String getTitle() {
@@ -147,4 +157,17 @@ public class Book {
 	public void setCopies(List<Copy> copies) {
 		this.copies = copies;
 	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+	public void setAvgScore(double avgScore) {
+		this.avgScore = avgScore;
+	}
+	
 }
