@@ -33,7 +33,8 @@ public class BookController {
 	 */
 	@RequestMapping("books/search")
 	public Iterable<Book> searchBooks(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
-		if (searchTerm == null) {
+		if (searchTerm == null || searchTerm == "") {
+			System.out.println("test");
 			return service.findAll();
 		} else {
 			return service.searchBooks(searchTerm);
