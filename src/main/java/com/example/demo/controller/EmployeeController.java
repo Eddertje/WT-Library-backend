@@ -5,6 +5,7 @@ import com.example.demo.entity.Employee;
 import com.example.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -74,6 +75,12 @@ public class EmployeeController {
 	@RequestMapping(value = "employee/get", method = RequestMethod.POST)
 	public Employee get(@RequestBody Employee user) {
 		return employeeService.findByEmail(user.getEmail());
+	}
+	
+	
+	@RequestMapping(value = "employee/{username}")
+	public Employee get(@PathVariable String username) {
+		return employeeService.findByEmail(username);
 	}
 
     /**
