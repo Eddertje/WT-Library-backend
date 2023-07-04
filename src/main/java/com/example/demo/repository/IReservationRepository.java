@@ -20,4 +20,6 @@ public interface IReservationRepository extends CrudRepository<Reservation, Long
 	 */
 	Iterable<Reservation> findByEmployee_idOrderByAllowedDescReservationDateDesc(long employeeId);
 
+	Iterable<Reservation> findByEmployee_id(Long id);
+
 }

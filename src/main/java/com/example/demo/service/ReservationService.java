@@ -79,6 +79,11 @@ public class ReservationService {
 		// TODO Auto-generated method stub
 		repo.deleteById(reservation.getId());
 	}
+	
+	public void deleteReservationById(long id) {
+		// TODO Auto-generated method stub
+		repo.deleteById(id);
+	}
 
 	/**
 	 * Finds reservations tied to given employee.
@@ -88,5 +93,9 @@ public class ReservationService {
 	public Iterable<Reservation> findByEmployeeEmail(Employee employee) {
 		Employee employee1 = employeeRepo.findEmployeeByEmail(employee.getEmail());
 		return repo.findByEmployee_idOrderByAllowedDescReservationDateDesc(employee1.getEmployeeId());
+	}
+	
+	public Iterable<Reservation> findByEmployeeId(Long id) {
+		return repo.findByEmployee_id(id);
 	}
 }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,6 +69,11 @@ public class ReservationController {
 	@RequestMapping(value ="reservation/userByEmail", method= RequestMethod.POST)
 	public Iterable<Reservation> findByEmployeeId(@RequestBody Employee employee){
 		return service.findByEmployeeEmail(employee);
+	}
+	
+	@RequestMapping("reservation/{id}")
+	public Iterable<Reservation> findByEmployeeId(@PathVariable Long id) {
+		return service.findByEmployeeId(id);
 	}
 
 	/**
@@ -147,6 +153,11 @@ public class ReservationController {
 	@RequestMapping(value = "reservation/delete", method = RequestMethod.DELETE)
 	public void deleteReservation(@RequestBody Reservation reservation) {
 		service.deleteReservation(reservation);
+	}
+	
+	@RequestMapping(value = "reservation/delete/{id}", method = RequestMethod.DELETE)
+	public void deleteReservation(@PathVariable Long id) {
+		service.deleteReservationById(id);
 	}
 	
 }
